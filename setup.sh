@@ -25,12 +25,23 @@ fi
 JELLYFIN_DIR="$HOME_DIR/jellyfin"
 SERIES_DIR="$JELLYFIN_DIR/series"
 DOCKER_DIR="$HOME_DIR/docker"
-mkdir -p "$JELLYFIN_DIR" "$SERIES_DIR" "$DOCKER_DIR"
+JELLYFIN_CONFIG_DIR="$JELLYFIN_DIR/config"
+mkdir -p "$JELLYFIN_DIR" "$SERIES_DIR" "$DOCKER_DIR" "$JELLYFIN_CONFIG_DIR"
 chown -R "$TARGET_USER:$TARGET_USER" "$JELLYFIN_DIR" "$DOCKER_DIR"
 echo "Verzeichnisse angelegt:"
 echo "  $JELLYFIN_DIR"
 echo "  $SERIES_DIR"
 echo "  $DOCKER_DIR"
+echo "  $JELLYFIN_CONFIG_DIR"
+echo "Schreibe Jellyfin-Branding (Custom CSS)..."
+cat >"$JELLYFIN_CONFIG_DIR/branding.xml" <<'EOF'
+<BrandingOptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <LoginDisclaimer />
+  <CustomCss>@import url('https://cdn.jsdelivr.net/gh/florianthepro/jellyfin@main/shared/jellyfin.css');</CustomCss>
+  <SplashscreenEnabled>false</SplashscreenEnabled>
+</BrandingOptions>
+EOF
+chown "$TARGET_USER:$TARGET_USER" "$JELLYFIN_CONFIG_DIR/branding.xml"
 echo "Führe allgemeine System-Updates aus..."
 apt-get update
 apt-get upgrade -y
@@ -82,13 +93,8 @@ JELLYFIN_SERIES_PATH=$SERIES_DIR
 EOF
 chown "$TARGET_USER:$TARGET_USER" "$ENV_FILE"
 echo ".env mit Base-URLs und Pfaden erstellt unter $ENV_FILE"
-printf "GitHub-Benutzername für das Repo (z.B. 'example-user'): "
-read -r GITHUB_USER
-if [ -z "$GITHUB_USER" ]; then
-echo "Kein GitHub-Benutzername angegeben. Abbruch."
-exit 1
-fi
-BASE_RAW="https://raw.githubusercontent.com/$GITHUB_USER/jellyfin/refs/heads/main"
+GITHUB_USER="florianthepro"
+BASE_RAW="https://raw.githubusercontent.com/$GITHUB_USER/jellyfin/main"
 FILES="jellyfin-compose.yaml seerr-compose.yaml sonarr-compose.yaml radarr-compose.yaml qbittorrent-compose.yaml"
 for F in $FILES; do
 URL="$BASE_RAW/$F"
@@ -116,6 +122,4 @@ echo "  Seerr:         http://$SERVER_IP:5055"
 echo "  Sonarr:        http://$SERVER_IP:8989"
 echo "  Radarr:        http://$SERVER_IP:7878"
 echo "  qBittorrent:   http://$SERVER_IP:8080"
-echo "Nächste Schritte (manuell oder per weiterem Script):"
-echo "  - Jellyfin-Admin, Bibliothek 'Serien' und Jellyfin-Enhanced konfigurieren"
-echo "  - Seerr-Owner, Sonarr/Radarr/qBittorrent einrichten und verknüpfen"
+echo "Jellyfin Custom CSS ist in $JELLYFIN_CONFIG_DIR/branding.xml hinterlegt."
