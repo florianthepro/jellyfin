@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-TARGET_USER="florianthepro"
+TARGET_USER="jellyfin-admin"
 TZ_DEFAULT="Europe/Berlin"
 LANGUAGE_DEFAULT="de-DE"
 JELLYFIN_PORT="8096"
