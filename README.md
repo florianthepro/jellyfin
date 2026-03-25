@@ -52,6 +52,8 @@ ziel:
 12. entsprechend qBitttorent installiren selben admin user
 13. achte darauf das /home/jellyfin/series sauber von allem benutzt wird und saubere die default admins und die api keys sauber ausgetauscht
 14. Bibelothek "Serien" mit pfad zu series in jellyfin anlegen (rest default)
+15. configuration von sachen wie das sie sich sauber
+16 css
 ```
 fertig
 
