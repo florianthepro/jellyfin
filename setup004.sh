@@ -99,3 +99,116 @@ fi
 if [ -z "$SERVER_IP" ]; then
   SERVER_IP="127.0.0.1"
 fi
+############################################################
+# 2/3 — Docker Compose Dateien nativ erzeugen
+############################################################
+
+cat >"$DOCKER_DIR/jellyfin-compose.yaml" <<EOF
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    user: "${USER_UID}:${USER_GID}"
+    ports:
+      - "${JELLYFIN_PORT}:8096/tcp"
+      - "7359:7359/udp"
+    volumes:
+      - ${JELLYFIN_CONFIG_DIR}:/config
+      - ${JELLYFIN_CACHE_DIR}:/cache
+      - ${JELLYFIN_SERIES_DIR}:/media
+      - ${JELLYFIN_MOVIES_DIR}:/movies
+    restart: unless-stopped
+    environment:
+      - TZ=${TZ_DEFAULT}
+      - JELLYFIN_PublishedServerUrl=http://${SERVER_IP}:${JELLYFIN_PORT}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+EOF
+
+cat >"$DOCKER_DIR/seerr-compose.yaml" <<EOF
+services:
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    container_name: seerr
+    init: true
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=${TZ_DEFAULT}
+      - PORT=${SEERR_PORT}
+    volumes:
+      - ${SEERR_CONFIG_DIR}:/app/config
+    ports:
+      - "${SEERR_PORT}:5055"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5055/api/v1/status"]
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+      retries: 3
+    restart: unless-stopped
+EOF
+
+cat >"$DOCKER_DIR/sonarr-compose.yaml" <<EOF
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=${USER_UID}
+      - PGID=${USER_GID}
+      - TZ=${TZ_DEFAULT}
+    volumes:
+      - ${SONARR_CONFIG_DIR}:/config
+      - ${JELLYFIN_SERIES_DIR}:/tv
+      - ${DOWNLOADS_DIR}:/downloads
+    ports:
+      - "${SONARR_PORT}:8989"
+    restart: unless-stopped
+EOF
+
+cat >"$DOCKER_DIR/radarr-compose.yaml" <<EOF
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=${USER_UID}
+      - PGID=${USER_GID}
+      - TZ=${TZ_DEFAULT}
+    volumes:
+      - ${RADARR_CONFIG_DIR}:/config
+      - ${JELLYFIN_MOVIES_DIR}:/movies
+      - ${DOWNLOADS_DIR}:/downloads
+    ports:
+      - "${RADARR_PORT}:7878"
+    restart: unless-stopped
+EOF
+
+cat >"$DOCKER_DIR/qbittorrent-compose.yaml" <<EOF
+services:
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=${USER_UID}
+      - PGID=${USER_GID}
+      - TZ=${TZ_DEFAULT}
+      - WEBUI_PORT=${QBIT_WEBUI_PORT}
+      - TORRENTING_PORT=${QBIT_TORRENT_PORT}
+    volumes:
+      - ${QBIT_CONFIG_DIR}:/config
+      - ${DOWNLOADS_DIR}:/downloads
+    ports:
+      - "${QBIT_WEBUI_PORT}:8080"
+      - "${QBIT_TORRENT_PORT}:${QBIT_TORRENT_PORT}"
+      - "${QBIT_TORRENT_PORT}:${QBIT_TORRENT_PORT}/udp"
+    restart: unless-stopped
+EOF
+
+# Rechte auf compose-Dateien setzen
+chown "$TARGET_USER:$TARGET_USER" \
+  "$DOCKER_DIR/jellyfin-compose.yaml" \
+  "$DOCKER_DIR/seerr-compose.yaml" \
+  "$DOCKER_DIR/sonarr-compose.yaml" \
+  "$DOCKER_DIR/radarr-compose.yaml" \
+  "$DOCKER_DIR/qbittorrent-compose.yaml"
