@@ -4,36 +4,25 @@ if [ "$(id -u)" -ne 0 ]; then
 echo "Starte Script mit Root-Rechten über sudo..."
 exec sudo "$0" "$@"
 fi
-DEFAULT_USER="$SUDO_USER"
-if [ -z "$DEFAULT_USER" ] || [ "$DEFAULT_USER" = "root" ]; then
-DEFAULT_USER="$(logname 2>/dev/null || id -un)"
-fi
-printf "Ziel-Linux-Benutzer für Docker/Jellyfin (Enter für %s): " "$DEFAULT_USER"
-read -r TARGET_USER
-if [ -z "$TARGET_USER" ]; then
-TARGET_USER="$DEFAULT_USER"
-fi
+TARGET_USER="florianthepro"
 if ! id "$TARGET_USER" >/dev/null 2>&1; then
-echo "Benutzer '$TARGET_USER' existiert nicht. Abbruch."
+echo "Benutzer '$TARGET_USER' existiert nicht. Bitte zuerst anlegen."
 exit 1
 fi
-HOME_DIR="$(getent passwd "$TARGET_USER" | cut -d: -f6)"
-if [ -z "$HOME_DIR" ]; then
-echo "Konnte Home-Verzeichnis von '$TARGET_USER' nicht bestimmen. Abbruch."
-exit 1
-fi
-JELLYFIN_DIR="$HOME_DIR/jellyfin"
-SERIES_DIR="$JELLYFIN_DIR/series"
+HOME_DIR="/home/$TARGET_USER"
 DOCKER_DIR="$HOME_DIR/docker"
-JELLYFIN_CONFIG_DIR="$JELLYFIN_DIR/config"
-mkdir -p "$JELLYFIN_DIR" "$SERIES_DIR" "$DOCKER_DIR" "$JELLYFIN_CONFIG_DIR"
-chown -R "$TARGET_USER:$TARGET_USER" "$JELLYFIN_DIR" "$DOCKER_DIR"
-echo "Verzeichnisse angelegt:"
-echo "  $JELLYFIN_DIR"
-echo "  $SERIES_DIR"
-echo "  $DOCKER_DIR"
-echo "  $JELLYFIN_CONFIG_DIR"
-echo "Schreibe Jellyfin-Branding (Custom CSS)..."
+JELLYFIN_BASE="$DOCKER_DIR/jellyfin"
+JELLYFIN_CONFIG_DIR="$JELLYFIN_BASE/config"
+JELLYFIN_CACHE_DIR="$JELLYFIN_BASE/cache"
+JELLYFIN_SERIES_DIR="$JELLYFIN_BASE/series"
+JELLYFIN_MOVIES_DIR="$JELLYFIN_BASE/movies"
+SEERR_CONFIG_DIR="$DOCKER_DIR/seerr/config"
+SONARR_CONFIG_DIR="$DOCKER_DIR/sonarr/config"
+RADARR_CONFIG_DIR="$DOCKER_DIR/radarr/config"
+QBIT_CONFIG_DIR="$DOCKER_DIR/qbittorrent/config"
+DOWNLOADS_DIR="$DOCKER_DIR/downloads"
+mkdir -p "$DOCKER_DIR" "$JELLYFIN_CONFIG_DIR" "$JELLYFIN_CACHE_DIR" "$JELLYFIN_SERIES_DIR" "$JELLYFIN_MOVIES_DIR" "$SEERR_CONFIG_DIR" "$SONARR_CONFIG_DIR" "$RADARR_CONFIG_DIR" "$QBIT_CONFIG_DIR" "$DOWNLOADS_DIR"
+chown -R "$TARGET_USER:$TARGET_USER" "$DOCKER_DIR"
 cat >"$JELLYFIN_CONFIG_DIR/branding.xml" <<'EOF'
 <BrandingOptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LoginDisclaimer />
@@ -42,11 +31,9 @@ cat >"$JELLYFIN_CONFIG_DIR/branding.xml" <<'EOF'
 </BrandingOptions>
 EOF
 chown "$TARGET_USER:$TARGET_USER" "$JELLYFIN_CONFIG_DIR/branding.xml"
-echo "Führe allgemeine System-Updates aus..."
 apt-get update
 apt-get upgrade -y
-echo "Installiere Basis-Pakete..."
-apt-get install -y ca-certificates curl gnupg lsb-release
+apt-get install -y ca-certificates curl gnupg lsb-release wget
 if [ ! -d /etc/apt/keyrings ]; then
 install -m 0755 -d /etc/apt/keyrings
 fi
@@ -62,7 +49,6 @@ if [ ! -f "$DOCKER_LIST" ]; then
 echo "deb [arch=$ARCH signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $CODENAME stable" > "$DOCKER_LIST"
 fi
 apt-get update
-echo "Installiere Docker Engine und Compose-Plugin..."
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 systemctl enable --now docker.service
 systemctl enable --now containerd.service
@@ -71,7 +57,6 @@ groupadd docker
 fi
 if ! getent group docker | grep -q "\b$TARGET_USER\b"; then
 usermod -aG docker "$TARGET_USER"
-echo "Benutzer '$TARGET_USER' zur Gruppe 'docker' hinzugefügt."
 fi
 SERVER_IP="$(hostname -I 2>/dev/null | awk '{print $1}')"
 if [ -z "$SERVER_IP" ]; then
@@ -80,46 +65,114 @@ fi
 if [ -z "$SERVER_IP" ]; then
 SERVER_IP="127.0.0.1"
 fi
-echo "Ermittelte Server-IP: $SERVER_IP"
-ENV_FILE="$DOCKER_DIR/.env"
-cat >"$ENV_FILE" <<EOF
-SERVER_IP=$SERVER_IP
-JELLYFIN_URL=http://$SERVER_IP:8096
-SEERR_URL=http://$SERVER_IP:5055
-SONARR_URL=http://$SERVER_IP:8989
-RADARR_URL=http://$SERVER_IP:7878
-QBITTORRENT_URL=http://$SERVER_IP:8080
-JELLYFIN_SERIES_PATH=$SERIES_DIR
+cat >"$DOCKER_DIR/jellyfin-compose.yaml" <<'EOF'
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    user: "1000:1000"
+    ports:
+      - "8096:8096/tcp"
+      - "7359:7359/udp"
+    volumes:
+      - /home/florianthepro/docker/jellyfin/config:/config
+      - /home/florianthepro/docker/jellyfin/cache:/cache
+      - /home/florianthepro/docker/jellyfin/series:/media
+      - /home/florianthepro/docker/jellyfin/movies:/movies
+    restart: unless-stopped
+    environment:
+      - TZ=Europe/Berlin
+      - JELLYFIN_PublishedServerUrl=http://localhost:8096
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 EOF
-chown "$TARGET_USER:$TARGET_USER" "$ENV_FILE"
-echo ".env mit Base-URLs und Pfaden erstellt unter $ENV_FILE"
-GITHUB_USER="florianthepro"
-BASE_RAW="https://raw.githubusercontent.com/$GITHUB_USER/jellyfin/main"
-FILES="jellyfin-compose.yaml seerr-compose.yaml sonarr-compose.yaml radarr-compose.yaml qbittorrent-compose.yaml"
-for F in $FILES; do
-URL="$BASE_RAW/$F"
-TARGET="$DOCKER_DIR/$F"
-echo "Lade $URL ..."
-if curl -fsSL "$URL" -o "$TARGET"; then
-chown "$TARGET_USER:$TARGET_USER" "$TARGET"
-echo "Gespeichert: $TARGET"
-else
-echo "Fehler beim Laden von $URL"
-exit 1
-fi
-done
-echo "Starte Docker-Stacks als Benutzer '$TARGET_USER'..."
-for F in $FILES; do
-echo "Starte Stack aus $F ..."
-su - "$TARGET_USER" -c "cd \"$DOCKER_DIR\" && docker compose -f \"$F\" up -d"
-done
-echo "Basis-Setup abgeschlossen."
-echo "Container-Status (Auszug):"
+cat >"$DOCKER_DIR/seerr-compose.yaml" <<'EOF'
+services:
+  seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    container_name: seerr
+    init: true
+    environment:
+      - LOG_LEVEL=debug
+      - TZ=Europe/Berlin
+      - PORT=5055
+    volumes:
+      - /home/florianthepro/docker/seerr/config:/app/config
+    ports:
+      - "5055:5055"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:5055/api/v1/status"]
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+      retries: 3
+    restart: unless-stopped
+EOF
+cat >"$DOCKER_DIR/sonarr-compose.yaml" <<'EOF'
+services:
+  sonarr:
+    image: lscr.io/linuxserver/sonarr:latest
+    container_name: sonarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+    volumes:
+      - /home/florianthepro/docker/sonarr/config:/config
+      - /home/florianthepro/docker/jellyfin/series:/tv
+      - /home/florianthepro/docker/downloads:/downloads
+    ports:
+      - "8989:8989"
+    restart: unless-stopped
+EOF
+cat >"$DOCKER_DIR/radarr-compose.yaml" <<'EOF'
+services:
+  radarr:
+    image: lscr.io/linuxserver/radarr:latest
+    container_name: radarr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+    volumes:
+      - /home/florianthepro/docker/radarr/config:/config
+      - /home/florianthepro/docker/jellyfin/movies:/movies
+      - /home/florianthepro/docker/downloads:/downloads
+    ports:
+      - "7878:7878"
+    restart: unless-stopped
+EOF
+cat >"$DOCKER_DIR/qbittorrent-compose.yaml" <<'EOF'
+services:
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Berlin
+      - WEBUI_PORT=8080
+      - TORRENTING_PORT=6881
+    volumes:
+      - /home/florianthepro/docker/qbittorrent/config:/config
+      - /home/florianthepro/docker/downloads:/downloads
+    ports:
+      - "8080:8080"
+      - "6881:6881"
+      - "6881:6881/udp"
+    restart: unless-stopped
+EOF
+chown "$TARGET_USER:$TARGET_USER" "$DOCKER_DIR/jellyfin-compose.yaml" "$DOCKER_DIR/seerr-compose.yaml" "$DOCKER_DIR/sonarr-compose.yaml" "$DOCKER_DIR/radarr-compose.yaml" "$DOCKER_DIR/qbittorrent-compose.yaml"
+su - "$TARGET_USER" -c "cd \"$DOCKER_DIR\" && docker compose -f jellyfin-compose.yaml up -d"
+su - "$TARGET_USER" -c "cd \"$DOCKER_DIR\" && docker compose -f seerr-compose.yaml up -d"
+su - "$TARGET_USER" -c "cd \"$DOCKER_DIR\" && docker compose -f sonarr-compose.yaml up -d"
+su - "$TARGET_USER" -c "cd \"$DOCKER_DIR\" && docker compose -f radarr-compose.yaml up -d"
+su - "$TARGET_USER" -c "cd \"$DOCKER_DIR\" && docker compose -f qbittorrent-compose.yaml up -d"
 su - "$TARGET_USER" -c "docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'"
-echo "Wichtige URLs:"
-echo "  Jellyfin:      http://$SERVER_IP:8096"
-echo "  Seerr:         http://$SERVER_IP:5055"
-echo "  Sonarr:        http://$SERVER_IP:8989"
-echo "  Radarr:        http://$SERVER_IP:7878"
-echo "  qBittorrent:   http://$SERVER_IP:8080"
+echo "Jellyfin:      http://$SERVER_IP:8096"
+echo "Seerr:         http://$SERVER_IP:5055"
+echo "Sonarr:        http://$SERVER_IP:8989"
+echo "Radarr:        http://$SERVER_IP:7878"
+echo "qBittorrent:   http://$SERVER_IP:8080"
 echo "Jellyfin Custom CSS ist in $JELLYFIN_CONFIG_DIR/branding.xml hinterlegt."
+echo "Alle Daten liegen unter: $DOCKER_DIR"
