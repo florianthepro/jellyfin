@@ -21,7 +21,7 @@ if ! id "$TARGET_USER" >/dev/null 2>&1; then
   exit 1
 fi
 
-HOME_DIR="/home/$TARGET_USER"
+HOME_DIR="/home/$TARGET_USER/test"
 USER_UID="$(id -u "$TARGET_USER")"
 USER_GID="$(id -g "$TARGET_USER")"
 
