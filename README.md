@@ -1,21 +1,15 @@
 Github REPO für ziel eines vollständigen JEllyfin server welcher programme wie Sonar enthält
-```
 Ziel:
 ausfüren von setup
-```
 ```
 curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin/main/setup.sh | sudo bash
 ```
 ```
 wget -qO- https://raw.githubusercontent.com/florianthepro/jellyfin/main/setup.sh | sudo bash
 ```
-```
 passwörter ändern
 fertig
-```
-
 3MU epg xml: ```https://epg.pw/xmltv/epg.xml```
-
 ```
 ziel:
 1. Script muss als admin
