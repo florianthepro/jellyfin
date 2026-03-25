@@ -4,7 +4,7 @@ Ziel:
 ausfüren von setup
 ```
 ```
-curl -sSL https://raw.githubusercontent.com/florianthepro/public/main/seerr-setup.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin/main/setup.sh | sudo bash
 ```
 ```
 passwörter ändern
