@@ -212,3 +212,30 @@ chown "$TARGET_USER:$TARGET_USER" \
   "$DOCKER_DIR/sonarr-compose.yaml" \
   "$DOCKER_DIR/radarr-compose.yaml" \
   "$DOCKER_DIR/qbittorrent-compose.yaml"
+############################################################
+# 3/3 — Docker-Stacks starten & Status ausgeben
+############################################################
+
+su - "$TARGET_USER" -c "cd \"$DOCKER_DIR\" && docker compose -f jellyfin-compose.yaml up -d"
+su - "$TARGET_USER" -c "cd \"$DOCKER_DIR\" && docker compose -f seerr-compose.yaml up -d"
+su - "$TARGET_USER" -c "cd \"$DOCKER_DIR\" && docker compose -f sonarr-compose.yaml up -d"
+su - "$TARGET_USER" -c "cd \"$DOCKER_DIR\" && docker compose -f radarr-compose.yaml up -d"
+su - "$TARGET_USER" -c "cd \"$DOCKER_DIR\" && docker compose -f qbittorrent-compose.yaml up -d"
+
+su - "$TARGET_USER" -c "docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'"
+
+echo "----------------------------------------------------"
+echo "Setup abgeschlossen."
+echo "Dienste laufen (falls keine Fehler gemeldet wurden)."
+echo
+echo "Jellyfin:      http://${SERVER_IP}:${JELLYFIN_PORT}"
+echo "Seerr:         http://${SERVER_IP}:${SEERR_PORT}"
+echo "Sonarr:        http://${SERVER_IP}:${SONARR_PORT}"
+echo "Radarr:        http://${SERVER_IP}:${RADARR_PORT}"
+echo "qBittorrent:   http://${SERVER_IP}:${QBIT_WEBUI_PORT}"
+echo
+echo "Jellyfin Custom CSS ist in:"
+echo "  $JELLYFIN_CONFIG_DIR/branding.xml"
+echo "Alle Docker-Daten liegen unter:"
+echo "  $DOCKER_DIR"
+echo "Jetzt einmal Jellyfin im Browser öffnen und den Setup-Wizard durchklicken."
