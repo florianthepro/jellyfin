@@ -7,6 +7,9 @@ ausfüren von setup
 curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin/main/setup.sh | sudo bash
 ```
 ```
+wget -qO- https://raw.githubusercontent.com/florianthepro/jellyfin/main/setup.sh | sudo bash
+```
+```
 passwörter ändern
 fertig
 ```
