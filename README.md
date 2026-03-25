@@ -6,4 +6,4 @@ passwörter ändern
 fertig
 
 
-3MU
+3MU epg xml: https://epg.pw/xmltv/epg.xml
