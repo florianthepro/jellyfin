@@ -2,6 +2,11 @@ Github REPO für ziel eines vollständigen JEllyfin server welcher programme wie
 ```
 Ziel:
 ausfüren von setup
+```
+```
+curl -sSL https://raw.githubusercontent.com/florianthepro/public/main/seerr-setup.sh | sudo bash
+```
+```
 passwörter ändern
 fertig
 ```
