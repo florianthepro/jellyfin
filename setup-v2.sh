@@ -4,7 +4,7 @@ if [ "$(id -u)" -ne 0 ]; then
   echo "Starte Script mit Root-Rechten über sudo..."
   exec sudo "$0" "$@"
 fi
-TARGET_USER="florianthepro"
+TARGET_USER="jellyfin-admin"
 if ! id "$TARGET_USER" >/dev/null 2>&1; then
   echo "Benutzer '$TARGET_USER' existiert nicht. Bitte zuerst anlegen."
   exit 1
