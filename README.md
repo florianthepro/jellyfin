@@ -1,5 +1,5 @@
 Github REPO für ziel eines vollständigen JEllyfin server welcher programme wie Sonar enthält
-`Ziel:`
+>`Ziel:`
 ausfüren von setup
 ```
 curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin/main/setup.sh | sudo bash
