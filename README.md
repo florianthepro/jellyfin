@@ -8,8 +8,33 @@ curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin/main/setup.sh
 wget -qO- https://raw.githubusercontent.com/florianthepro/jellyfin/main/setup.sh | sudo bash
 ```
 passwörter ändern
-fertig
-3MU epg xml: ```https://epg.pw/xmltv/epg.xml```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
 ```
 ziel:
 1. Script muss als admin
@@ -28,3 +53,6 @@ ziel:
 13. achte darauf das /home/jellyfin/series sauber von allem benutzt wird und saubere die default admins und die api keys sauber ausgetauscht
 14. Bibelothek "Serien" mit pfad zu series in jellyfin anlegen (rest default)
 ```
+fertig
+
+3MU epg xml: ```https://epg.pw/xmltv/epg.xml```
