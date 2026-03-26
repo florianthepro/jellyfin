@@ -1,11 +1,14 @@
 #===== setup =====
 docker compose -f /home/$username/docker/compose.yaml up -d
+docker stop jellyfin
 
 #tailscale funnel 8096 on
 #===== end =====
 clear
 cat ./docker/compose.yaml
 ask "done? "
+
+
 ziel:
 5. jellyfin auto-setup:
    erster user: admin / Password123!
