@@ -1,13 +1,8 @@
 #!/bin/sh
-#set -euo pipefail
+set -euo pipefail
 
-printf "1: " >/dev/tty
-IFS= read -r var </dev/tty
-
-ask() {
-printf "%s" "$1" >/dev/tty
-IFS= read -r REPLY </dev/tty
-}
+printf "2: " >/dev/tty
+IFS= read -r statsunnummer </dev/tty
 
 sudo apt update
 sudo apt upgrade
@@ -34,12 +29,12 @@ sudo usermod -aG docker "$(whoami)"
 username="$(whoami)"
 userid="$(id -u)"
 groupid="$(id -g)"
-ask "Please enter your Password: "
-userpass="$REPLY"
+printf "Please enter your Password: " >/dev/tty
+IFS= read -r userpass </dev/tty
 echo "goto https://login.tailscale.com/admin/settings/keys"
 echo "press Generate auth key..."
-ask "Enter your Auth Key: "
-tsauthkey="$REPLY"
+printf "Enter your Auth Key: " >/dev/tty
+IFS= read -r tsauthkey </dev/tty
 mkdir -p ~/media/music
 mkdir -p ~/media/video
 mkdir -p ~/media/books
