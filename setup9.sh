@@ -131,6 +131,7 @@ curl -s -X POST \
 
 curl -s -X POST "http://$addr:8096/Startup/Complete"
 
+clear
 echo "http://$addr:8096/"
 echo "$username"
 echo "$userpass"
