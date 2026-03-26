@@ -130,6 +130,10 @@ curl -s -X POST \
 
 curl -s -X POST "http://$addr:8096/Startup/Complete"
 
+echo "http://$addr:8096/"
+echo "$username"
+echo "$userpass"
+
 : <<'EOF'
 tailscale funnel 8096 on
 #===== end =====
