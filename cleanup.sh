@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+clear
 aggressive=false
 user_data=false
 while [ $# -gt 0 ]; do
