@@ -95,8 +95,8 @@ clear
 #===== setup =====
 #===== setup =====
 addr=$(ip -4 route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="src") {print $(i+1); exit}}')
-docker compose -f /home/$username/docker/compose.yaml up -d
 clear
+docker compose -f /home/$username/docker/compose.yaml up -d
 echo "wait for jellyfin"
 sleep 15
 
