@@ -1,5 +1,16 @@
 #!/bin/sh
 set -euo pipefail
+
+prompt() {
+  local input=""
+  while true; do
+    printf "%s" "$1"
+    read -r input
+    [ -n "$input" ] && echo "$input" && return 0
+    printf "Eingabe darf nicht leer sein. Bitte erneut versuchen.\n" >&2
+  done
+}
+
 username="$(whoami)"
 userid="$(id -u)"
 groupid="$(id -g)"
