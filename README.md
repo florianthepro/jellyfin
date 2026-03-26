@@ -17,10 +17,6 @@ sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-compose-
 ---
 Install:
 ```
-curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/install.sh | bash
-```
-Setup:
-```
 curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/setup.sh | bash
 ```
 <!--
