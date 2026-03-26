@@ -30,6 +30,16 @@ services:
       - /home/username/media:/data
     restart: unless-stopped
 
+  radarr:
+    image: ghcr.io/hotio/radarr
+    container_name: radarr
+    ports:
+      - 7878:7878
+    volumes:
+      - /home/username/docker/radarr/config:/config
+      - /home/username/media:/data
+    restart: unless-stopped
+
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
