@@ -6,8 +6,8 @@ printf "%s" "$1" >/dev/tty
 IFS= read -r REPLY </dev/tty
 }
 
-sudo apt update
-sudo apt upgrade
+sudo apt update -qq -y
+sudo apt upgrade -qq -y
 
 #===== intallation =====
 
