@@ -9,10 +9,12 @@ sudo systemctl restart ssh
 ip -4 addr show
 #connect: ssh user@ip
 ```
+<!--
 Reset:
 ```
 curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/cleanup.sh | sudo bash
 ```
+-->
 ---
 Setup:
 ```
