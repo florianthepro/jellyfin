@@ -5,14 +5,11 @@ printf "%s" "$1" >/dev/tty
 IFS= read -r REPLY </dev/tty
 }
 sudo rm -rf *
-clear
-dir
-ask "done? "
 sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
-ask "done? "
-sudo apt update -qq -y
-sudo apt upgrade -qq -y
+sudo apt update -y
+sudo apt upgrade -y
 #===== intallation =====
+clear
 echo "goto https://login.tailscale.com/admin/acls/file"
 echo "press Edit anyway..."
 echo "add"
@@ -28,8 +25,10 @@ ask "done? "
 username="$(whoami)"
 userid="$(id -u)"
 groupid="$(id -g)"
+clear
 ask "Please enter your Password: "
 userpass="$REPLY"
+clear
 echo "goto https://login.tailscale.com/admin/settings/keys"
 echo "press Generate auth key..."
 ask "Enter your Auth Key: "
@@ -43,7 +42,9 @@ mkdir -p ~/docker/seerr
 mkdir -p ~/docker/sonarr
 mkdir -p ~/docker/radarr
 mkdir -p ~/docker/qbittorrent
+ask "done2? "
 sudo curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/compose.yaml -o ~/docker/compose.yaml
+ask "done3? "
 sed -i "s/fill-usr/$username/g" ~/docker/compose.yaml
 sed -i "s/fill-key/$tsauthkey/g" ~/docker/compose.yaml
 #===== docker =====
