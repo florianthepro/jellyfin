@@ -26,3 +26,7 @@ ziel:
 fertig
 
 3MU epg xml: ```https://epg.pw/xmltv/epg.xml```
+
+#mkdir -p ~/media/video/series-a/season00/s01E01.mkv & mkdir -p ~/media/video/movie-name/data like mp3 mkv etc
+#sudo tailscale funnel 8096 on
+#sudo tailscale funnel on 8096
