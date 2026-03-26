@@ -49,3 +49,19 @@ services:
     ports:
       - 8080:8080
     restart: unless-stopped
+
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: tailscale
+    hostname: username-media
+    environment:
+      - TS_AUTHKEY=tskey-REPLACE-ME
+      - TS_STATE_DIR=/var/lib/tailscale
+    volumes:
+      - /home/username/docker/tailscale/state:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+    restart: unless-stopped
