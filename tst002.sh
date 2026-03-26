@@ -33,7 +33,7 @@ groupid="$(id -g)"
 
 ask "Please enter your Password: "
 userpass="$REPLY"
-
+echo "$userpass"
 echo "goto https://login.tailscale.com/admin/settings/keys"
 echo "press Generate auth key..."
 
