@@ -1,19 +1,16 @@
 #!/bin/sh
-
+clear
 set -euo pipefail
+sudo apt update -y
+sudo apt upgrade -y
+
+sudo rm -rf *
+sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
 
 ask() {
 printf "%s" "$1" >/dev/tty
 IFS= read -r REPLY </dev/tty
 }
-
-sudo rm -rf *
-sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
-
-sudo apt update -y
-sudo apt upgrade -y
-
-#===== intallation =====
 
 clear
 cat <<'END'
@@ -35,11 +32,12 @@ cat <<'END'
 END
 ask "done? "
 
+clear
 username="$(whoami)"
 userid="$(id -u)"
 groupid="$(id -g)"
-clear
 
+clear
 ask "Please enter your Password: "
 userpass="$REPLY"
 
@@ -53,6 +51,7 @@ END
 ask "Enter your Auth Key: "
 tsauthkey="$REPLY"
 
+clear
 mkdir -p ~/media/music
 mkdir -p ~/media/video
 mkdir -p ~/media/books
@@ -64,7 +63,6 @@ mkdir -p ~/docker/radarr
 mkdir -p ~/docker/qbittorrent
 
 sudo curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/compose.yaml -o ~/docker/compose.yaml
-
 sed -i "s/fill-usr/$username/g" ~/docker/compose.yaml
 sed -i "s/fill-key/$tsauthkey/g" ~/docker/compose.yaml
 
@@ -77,7 +75,8 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 sudo apt update -qq -y
 sudo apt install -qq -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker "$(whoami)"
-
+clear
 #===== setup =====
 docker compose -f /home/$username/docker/compose.yaml up -d
+clear
 #tailscale funnel 8096 on
