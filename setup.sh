@@ -35,8 +35,8 @@ curl -s -X POST \
 
 curl -s -X POST "http://$addr:8096/Startup/Complete"
 
-ask "enden? "
-#tailscale funnel 8096 on
+: <<'EOF'
+tailscale funnel 8096 on
 #===== end =====
 clear
 #cat ./docker/compose.yaml
@@ -68,3 +68,4 @@ ziel:
 14. sonarr/radarr/seerr/qbit verbindungen prüfen
 15. configuration sauber setzen (basisoptionen)
 16. css laden
+EOF
