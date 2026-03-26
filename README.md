@@ -1,10 +1,18 @@
 ![REPO](https://img.shields.io/badge/REPO-in%20progress-blueviolet?logoColor=white)
 
+Openssh
+```
+sudo apt update
+sudo apt install openssh-server
+sudo systemctl enable --now ssh
+sudo ufw status
+sudo ufw allow OpenSSH
+sudo ufw enable
+sudo systemctl restart ssh
+```
 Reset:
 ```
 sudo rm -rf *
-```
-```
 sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
 ```
 ---
