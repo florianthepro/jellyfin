@@ -5,9 +5,6 @@ cd /home/$(whoami)
 sudo apt update -y
 sudo apt upgrade -y
 
-sudo rm -rf *
-sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
-
 ask() {
 printf "%s" "$1" >/dev/tty
 IFS= read -r REPLY </dev/tty
@@ -16,11 +13,8 @@ IFS= read -r REPLY </dev/tty
 clear
 cat <<'END'
 >goto https://login.tailscale.com/admin/acls/file
-
 >press "Edit anyway..."
-
 >add:
-
 ====================
 	"nodeAttrs": [
 		{
@@ -29,7 +23,6 @@ cat <<'END'
 		}
 	]
 ===================
-
 END
 ask "done? "
 
@@ -45,9 +38,7 @@ userpass="$REPLY"
 clear
 cat <<'END'
 >goto "https://login.tailscale.com/admin/settings/keys"
-
 >press "Generate auth key..."
-
 END
 ask "Enter your Auth Key: "
 tsauthkey="$REPLY"
@@ -85,3 +76,4 @@ docker compose -f /home/$username/docker/compose.yaml up -d
 clear
 cat ./docker/compose.yaml
 ask "done? "
+curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/setup-jellyfin.sh | bash
