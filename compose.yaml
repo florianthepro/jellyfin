@@ -7,10 +7,7 @@ services:
     volumes:
       - /home/username/docker/jellyfin/config:/config
       - /home/username/docker/jellyfin/cache:/cache
-      - type: bind
-        source: /home/username/media
-        target: /media
-        read_only: true
+      - /home/username/media:/media:ro
     restart: unless-stopped
 
   seerr:
@@ -21,17 +18,13 @@ services:
       - 5055:5055
     volumes:
       - /home/username/docker/seerr/config:/app/config
-    healthcheck:
-      test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
-      start_period: 20s
-      timeout: 3s
-      interval: 15s
-      retries: 3
     restart: unless-stopped
 
   sonarr:
     image: ghcr.io/hotio/sonarr
     container_name: sonarr
+    ports:
+      - 8989:8989
     volumes:
       - /home/username/docker/sonarr/config:/config
       - /home/username/media:/data
