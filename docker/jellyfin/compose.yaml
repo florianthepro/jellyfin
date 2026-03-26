@@ -11,8 +11,9 @@ services:
         source: /home/username/media
         target: /media
         read_only: true
-    restart: 'unless-stopped'
-    seerr:
+    restart: unless-stopped
+
+  seerr:
     image: ghcr.io/seerr-team/seerr:latest
     init: true
     container_name: seerr
@@ -27,12 +28,15 @@ services:
       interval: 15s
       retries: 3
     restart: unless-stopped
-sonarr:
+
+  sonarr:
     image: ghcr.io/hotio/sonarr
+    container_name: sonarr
     volumes:
-        - /home/username/docker/sonarr/config:/config
-        - /home/username/media:/data
+      - /home/username/docker/sonarr/config:/config
+      - /home/username/media:/data
     environment:
-        - PUID=111
-        - PGID=321
-        - UMASK=002
+      - PUID=111
+      - PGID=321
+      - UMASK=002
+    restart: unless-stopped
