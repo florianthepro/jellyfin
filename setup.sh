@@ -30,6 +30,9 @@ cat <<'END'
 	]
 END
 
+printf "done?" >&2
+IFS= read -r _
+
 curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/docker.sh | sudo bash
 
 sudo usermod -aG docker "$(whoami)"
