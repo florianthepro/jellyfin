@@ -8,7 +8,7 @@ sleep 15
 curl -s -X POST \
   -H "Content-Type: application/json" \
   -d "{
-    \"UICulture\": \"$language\",
+    \"UICulture\": \"$ui_culture\",
     \"PreferredDisplayLanguage\": \"$display_language\",
     \"MetadataCountryCode\": \"$country_code\",
     \"MetadataCountryName\": \"$country_name\",
