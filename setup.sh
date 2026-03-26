@@ -1,5 +1,5 @@
 #!/bin/sh
-#curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/setup.sh | sudo bash
+#curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/setup.sh | bash
 username="$(whoami)"
 userid="$(id -u)"
 groupid="$(id -g)"
