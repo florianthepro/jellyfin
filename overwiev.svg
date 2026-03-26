@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="420">
+<rect x="20" y="20" width="380" height="380" fill="#eef7ff" stroke="#3a6ea5" stroke-width="2"/>
+<text x="30" y="45" font-size="20" fill="#3a6ea5">Lokales Netz</text>
+<rect x="60" y="80" width="300" height="120" fill="#ffffff" stroke="#3a6ea5" stroke-width="1"/>
+<text x="75" y="105" font-size="16" fill="#3a6ea5">Server</text>
+<rect x="80" y="125" width="260" height="60" fill="#dff1ff" stroke="#3a6ea5" stroke-width="1"/>
+<text x="95" y="155" font-size="14" fill="#3a6ea5">Jellyfin Service</text>
+<text x="95" y="175" font-size="14" fill="#3a6ea5">Port 8096</text>
+
+<rect x="500" y="20" width="380" height="380" fill="#fff3e6" stroke="#a55e3a" stroke-width="2"/>
+<text x="510" y="45" font-size="20" fill="#a55e3a">Public Netz</text>
+
+<path d="M360 155 C450 155 450 210 500 210" stroke="#00aa66" stroke-width="4" fill="none" marker-end="url(#arrow)"/>
+<text x="390" y="140" font-size="14" fill="#00aa66">Tailscale Funnel</text>
+
+<rect x="540" y="180" width="300" height="60" fill="#fff" stroke="#a55e3a" stroke-width="1"/>
+<text x="555" y="210" font-size="14" fill="#a55e3a">Extern erreichbar: Jellyfin über Funnel</text>
+<text x="555" y="230" font-size="14" fill="#a55e3a">HTTPS Port 443</text>
+
+<defs>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto">
+<path d="M0,0 L0,6 L9,3 z" fill="#00aa66"/>
+</marker>
+</defs>
+</svg>
