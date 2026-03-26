@@ -1,36 +1,55 @@
 #!/bin/sh
+
 set -euo pipefail
+
 ask() {
 printf "%s" "$1" >/dev/tty
 IFS= read -r REPLY </dev/tty
 }
+
 sudo rm -rf *
 sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
+
 sudo apt update -y
 sudo apt upgrade -y
+
 #===== intallation =====
+
 clear
-echo "goto https://login.tailscale.com/admin/acls/file"
-echo "press Edit anyway..."
-echo "add"
 cat <<'END'
+>goto https://login.tailscale.com/admin/acls/file
+
+>press "Edit anyway..."
+
+>add:
+
+====================
 	"nodeAttrs": [
 		{
 			"target": ["autogroup:member"],
 			"attr":   ["funnel"]
 		}
 	]
+===================
+
 END
 ask "done? "
+
 username="$(whoami)"
 userid="$(id -u)"
 groupid="$(id -g)"
 clear
+
 ask "Please enter your Password: "
 userpass="$REPLY"
+
 clear
-echo "goto https://login.tailscale.com/admin/settings/keys"
-echo "press Generate auth key..."
+cat <<'END'
+>goto "https://login.tailscale.com/admin/settings/keys"
+
+>press "Generate auth key..."
+
+END
 ask "Enter your Auth Key: "
 tsauthkey="$REPLY"
 mkdir -p ~/media/music
