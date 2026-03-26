@@ -2,7 +2,7 @@ Sonarr:
     image: ghcr.io/hotio/sonarr
     volumes:
         - /home/username/docker/sonarr/config:/config
-        - /home/username/docker/sonarr/data:/data
+        - /home/username/media:/data
     environment:
         - PUID=111
         - PGID=321
