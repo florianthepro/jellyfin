@@ -1,5 +1,4 @@
-mermaid
-```
+```mermaid
 flowchart LR
 %% ===== Bereiche =====
 subgraph LOCAL[Lokales Netzwerk]
