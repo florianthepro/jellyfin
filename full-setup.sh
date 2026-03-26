@@ -101,7 +101,7 @@ clear
 docker compose -f /home/$username/docker/compose.yaml up -d
 echo "wait for jellyfin"
 sleep 15
-: <<'EEOF'
+
 curl -s -X POST \
   -H "Content-Type: application/json" \
   -d "{
@@ -131,7 +131,7 @@ curl -s -X POST \
   "http://$addr:8096/Startup/RemoteAccess"
 
 curl -s -X POST "http://$addr:8096/Startup/Complete"
-EEOF
+
 clear
 echo "http://$addr:8096/"
 echo "$username"
