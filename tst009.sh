@@ -52,6 +52,7 @@ cat <<'END'
 END
 ask "Enter your Auth Key: "
 tsauthkey="$REPLY"
+
 mkdir -p ~/media/music
 mkdir -p ~/media/video
 mkdir -p ~/media/books
@@ -62,10 +63,13 @@ mkdir -p ~/docker/sonarr
 mkdir -p ~/docker/radarr
 mkdir -p ~/docker/qbittorrent
 sleep 3
+
 sudo curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/compose.yaml -o ~/docker/compose.yaml
 sleep 1
+
 sed -i "s/fill-usr/$username/g" ~/docker/compose.yaml
 sed -i "s/fill-key/$tsauthkey/g" ~/docker/compose.yaml
+
 #===== docker =====
 sudo apt update -qq -y
 sudo apt install -qq -y ca-certificates curl gnupg
@@ -75,6 +79,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 sudo apt update -qq -y
 sudo apt install -qq -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker "$(whoami)"
+
 #===== setup =====
 docker compose -f /home/$username/docker/compose.yaml up -d
 #tailscale funnel 8096 on
