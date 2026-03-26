@@ -23,6 +23,10 @@ cat <<'END'
 	]
 END
 
+
+
+sudo usermod -aG docker $SUDO_USER
+
 username="$(whoami)"
 userid="$(id -u)"
 groupid="$(id -g)"
