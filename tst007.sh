@@ -42,9 +42,9 @@ mkdir -p ~/docker/seerr
 mkdir -p ~/docker/sonarr
 mkdir -p ~/docker/radarr
 mkdir -p ~/docker/qbittorrent
-ask "done2? "
+sleep 3
 sudo curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/compose.yaml -o ~/docker/compose.yaml
-ask "done3? "
+sleep 1
 sed -i "s/fill-usr/$username/g" ~/docker/compose.yaml
 sed -i "s/fill-key/$tsauthkey/g" ~/docker/compose.yaml
 #===== docker =====
@@ -58,4 +58,4 @@ sudo apt install -qq -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 sudo usermod -aG docker "$(whoami)"
 #===== setup =====
 docker compose -f /home/$username/docker/compose.yaml up -d
-tailscale funnel 8096 on
+#tailscale funnel 8096 on
