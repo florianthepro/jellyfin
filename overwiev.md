@@ -1,7 +1,7 @@
 ```mermaid
 flowchart LR
 %% ===== Bereiche =====
-subgraph LOCAL[Lokales Netzwerk]
+subgraph LOCAL[Lokales Netzwerk aka docker]
 direction TB
 
     %% Jellyfin
