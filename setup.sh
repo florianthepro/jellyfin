@@ -94,6 +94,7 @@ sudo apt install -qq -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 sudo usermod -aG docker "$(whoami)"
 clear
 #===== setup =====
+: <<'EEOF'
 #===== setup =====
 addr=$(ip -4 route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="src") {print $(i+1); exit}}')
 clear
@@ -170,3 +171,4 @@ ziel:
 15. configuration sauber setzen (basisoptionen)
 16. css laden
 EOF
+EEOF
