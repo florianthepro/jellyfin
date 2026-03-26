@@ -35,3 +35,5 @@ sed -i "s|fill-usr|$username|g" ~/docker/compose.yaml
 sed -i "s|fill-key|$tsauthkey|g" ~/docker/compose.yaml
 docker install
 compose up
+#sudo tailscale funnel 8096 on
+#sudo tailscale funnel on 8096
