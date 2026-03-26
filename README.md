@@ -15,23 +15,41 @@ curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setu
 ---
 ```
 ziel:
-1. Script muss als admin
-2. Allgemeine updates checken
-3. Zielverzeichnis jellyfin und docker in home erstellen
-3.1 series in jellyfin in homes erstellen
-4. Docker installiren (sodass man bei befehlen kein sudo braucht) und compose von https://raw.githubusercontent.com/florianthepro/jellyfin/refs/heads/main/jellyfin-compose.yaml laden in ordner docker (der der in docker ist) und starten
-5. normalerweiße kann user nun im web setup machen aber bei uns soll das script selber den ersten (admin) user auf "admin" mit passwort "Password123!" festlegen
-6. Seerr installiren (seerr-compose.yaml) ist in meinem repo
-7. Plugin Jellyfin Enhanct installiren (offizelles repo in jellyfin hinterlegen und installiren und reboot)
-8. Seerr setup (selber admin user mit Password123!
-9. sonarr und ViedeoRarr installation&setup mit selben admin user und jewals via offizeller docker (sonarr-compose.yaml und die radarr-compose.yaml in meinem repo (offizelle version)
-10. Sonarr Vidoarr in Seerr integriren api keys 
-11. Sauberes dateien (seerr und Soarr und so sollen /home/jellyfin/series serien speichern)
-12. entsprechend qBitttorent installiren selben admin user
-13. achte darauf das /home/jellyfin/series sauber von allem benutzt wird und saubere die default admins und die api keys sauber ausgetauscht
-14. Bibelothek "Serien" mit pfad zu series in jellyfin anlegen (rest default)
-15. configuration von sachen wie das sie sich sauber
-16 css
+1. script muss als admin laufen
+2. allgemeine system-updates prüfen/installieren
+3. zielverzeichnisse erstellen:
+   - /home/jellyfin/docker
+   - /home/jellyfin/series
+   - /home/jellyfin/media (falls benötigt)
+4. docker installieren + user zu docker gruppe hinzufügen
+   compose von meinem repo laden (jellyfin-compose.yaml) nach /home/jellyfin/docker
+   jellyfin starten (ohne sudo)
+5. jellyfin auto-setup:
+   erster user: admin / Password123!
+   bibliothek "Serien" → /home/jellyfin/series
+6. seerr installieren (seerr-compose.yaml aus repo)
+   auto-setup admin / Password123!
+7. jellyfin plugin "Enhancer" installieren:
+   offizielles repo eintragen + plugin installieren + jellyfin reboot
+8. sonarr + radarr installieren (compose-dateien aus repo)
+   auto-setup admin / Password123!
+9. integration:
+   - sonarr API key → seerr
+   - radarr API key → seerr
+   - qbittorrent API key → sonarr + radarr
+10. qbittorrent installieren:
+    auto-setup admin / Password123!
+11. sicherstellen:
+    alle nutzen /home/jellyfin/series korrekt:
+      - jellyfin: read
+      - sonarr/radarr/qbit: write
+12. cleanup:
+    default admins entfernen
+    default api keys entfernen
+13. jellyfin bibliothek prüfen
+14. sonarr/radarr/seerr/qbit verbindungen prüfen
+15. configuration sauber setzen (basisoptionen)
+16. css laden
 ```
 fertig
 
