@@ -35,8 +35,4 @@ services:
     volumes:
       - /home/username/docker/sonarr/config:/config
       - /home/username/media:/data
-    environment:
-      - PUID=111
-      - PGID=321
-      - UMASK=002
     restart: unless-stopped
