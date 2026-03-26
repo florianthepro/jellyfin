@@ -11,7 +11,7 @@ ip -4 addr show
 ```
 Reset:
 ```
-curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/cleanup.sh | bash
+curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/cleanup.sh | sudo bash
 ```
 ---
 Setup:
