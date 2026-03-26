@@ -14,9 +14,10 @@ mkdir -p ~/media/books
 
 mkdir -p ~/docker/jellyfin
 curl -L https://raw.githubusercontent.com/florianthepro/jellyfin/main/docker/jellyfin/compose.yaml -o ~/docker/jellyfin/compose.yaml
-
+sed -i "s|username|$username|g" ~/docker/jellyfin/compose.yaml
 #mkdir -p ~/docker/sonarr
 #curl -L https://raw.githubusercontent.com/florianthepro/jellyfin/main/docker/sonarr/compose.yaml -o ~/docker/sonarr/compose.yaml
-
+#sed -i "s|username|$username|g" ~/docker/sonarr/compose.yaml
 #mkdir -p ~/docker/radarr
 #curl -L https://raw.githubusercontent.com/florianthepro/jellyfin/main/docker/radarr/compose.yaml -o ~/docker/radarr/compose.yaml
+#sed -i "s|username|$username|g" ~/docker/radarr/compose.yaml
