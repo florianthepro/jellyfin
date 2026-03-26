@@ -23,7 +23,7 @@ cat <<'END'
 	]
 END
 
-
+curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/docker.sh | sudo bash
 
 sudo usermod -aG docker $SUDO_USER
 
