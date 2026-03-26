@@ -4,6 +4,8 @@ set -euo pipefail
 sudo apt update
 sudo apt upgrade
 
+#===== intallation =====
+
 prompt() {
   local input=""
   while true; do
@@ -28,7 +30,7 @@ END
 
 curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/docker.sh | sudo bash
 
-sudo usermod -aG docker $SUDO_USER
+sudo usermod -aG docker "$(whoami)"
 
 username="$(whoami)"
 userid="$(id -u)"
@@ -51,3 +53,5 @@ mkdir -p ~/docker/qbittorrent
 curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/compose.yaml -o ~/docker/compose.yaml
 sed -i "s|fill-usr|$username|g" ~/docker/compose.yaml
 sed -i "s|fill-key|$tsauthkey|g" ~/docker/compose.yaml
+
+#===== setup =====
