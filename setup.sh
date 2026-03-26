@@ -38,10 +38,10 @@ username="$(whoami)"
 userid="$(id -u)"
 groupid="$(id -g)"
 #echo "Hello, World!"
-userpass="$(prompt "Please enter your Password: ")"
+userpass="$(prompt 'Please enter your Password: ')"
 echo "goto https://login.tailscale.com/admin/settings/keys"
 echo "press Generate auth key..."
-tsauthkey="$(prompt "enter your Auth Key: ")"
+tsauthkey="$(prompt 'Enter your Auth Key: ')"
 
 mkdir -p ~/media/music
 mkdir -p ~/media/video
