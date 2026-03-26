@@ -3,7 +3,7 @@
 ![WIP](https://img.shields.io/badge/WIP-not%20finished-red)
 ![WIP](https://img.shields.io/badge/WIP-Work_in_Progress-orange)
 ![WIP](https://img.shields.io/badge/WIP-active-orange?style=flat-square)
-![WIP](https://img.shields.io/badge/WIP-in%20progress-blueviolet?logoColor=white)
+![REPO](https://img.shields.io/badge/WIP-in%20progress-blueviolet?logoColor=white)
 ```
 ██     ██ ██ ██████  
 ██     ██ ██ ██   ██ 
