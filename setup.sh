@@ -4,10 +4,21 @@ docker compose -f /home/$username/docker/compose.yaml up -d
 clear
 echo "wait for jellyfin"
 sleep 15
-clear
+while :; do
 
+clear
 ask "ui-culture (like 'de' or 'en'):"
-ui-culture="$REPLY"
+language="$REPLY"
+
+ui_culture_normalized=$(printf '%s' "$ui_culture" | tr 'A-Z' 'a-z')
+case "$ui_culture_normalized" in
+de|en)
+break
+;;
+*)
+;;
+esac
+done
 
 case "$ui_culture_normalized" in
   de)
@@ -27,7 +38,7 @@ esac
 curl -s -X POST \
   -H "Content-Type: application/json" \
   -d '{
-    "UICulture": "$ui-culture",
+    "UICulture": "$language",
     "PreferredDisplayLanguage": "$display-language",
     "MetadataCountryCode": "country-code",
     "MetadataCountryName": "Germany",
