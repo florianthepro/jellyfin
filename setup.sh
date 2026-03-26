@@ -1,8 +1,11 @@
 #!/bin/sh
 set -euo pipefail
-
-printf "2: " >/dev/tty
-IFS= read -r statsunnummer </dev/tty
+ask() {
+printf "%s" "$1" >/dev/tty
+IFS= read -r REPLY </dev/tty
+}
+ask "Bitte Eingabe: "
+var="$REPLY"
 
 sudo apt update
 sudo apt upgrade
