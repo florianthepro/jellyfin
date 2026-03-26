@@ -55,7 +55,7 @@ services:
     container_name: tailscale
     hostname: jellyfin
     environment:
-      - TS_AUTHKEY=tskey-auth-kL7dHMnAop11CNTRL-xxFRPKKEysB44LUTRR6ysBzzy3oCxNZg
+      - TS_AUTHKEY=fill-key
       - TS_STATE_DIR=/var/lib/tailscale
     volumes:
       - /home/fill-usr/docker/tailscale/state:/var/lib/tailscale
