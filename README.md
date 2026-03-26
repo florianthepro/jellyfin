@@ -1,6 +1,6 @@
 ![REPO](https://img.shields.io/badge/REPO-in%20progress-blueviolet?logoColor=white)
 
-Delete old docker:
+Reset:
 ```
 sudo rm -rf *
 ```
