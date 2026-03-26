@@ -2,37 +2,7 @@
 ```
 curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/setup.sh | sudo bash
 ```
-
-
-
-
-
-
-#!/usr/bin/env bash
-set -euo pipefail
-
-
-
-
-
-
-username="$(prompt "Bitte Username eingeben: ")"
-port="$(prompt "Bitte Port eingeben: ")"
-
-
-
-
-
-
-
-
-
-
-
-
-
 ---
-
 ```
 ziel:
 1. Script muss als admin
