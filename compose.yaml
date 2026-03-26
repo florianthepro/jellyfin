@@ -29,3 +29,13 @@ services:
       - /home/username/docker/sonarr/config:/config
       - /home/username/media:/data
     restart: unless-stopped
+
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    volumes:
+      - /home/username/docker/qbittorrent/config:/config
+      - /home/username/media:/downloads
+    ports:
+      - 8080:8080
+    restart: unless-stopped
