@@ -20,13 +20,13 @@ direction TB
     %% Tailscale Node
     TS[Tailscale Node<br/>host network<br/>Funnel Endpoint]
 
-end
+    end
 
-subgraph INTERNET[Öffentlich / Internet]
-direction TB
+    subgraph INTERNET[Öffentlich / Internet]
+    direction TB
     FUNNEL[Tailscale Funnel<br/>HTTPS 443 → Jellyfin 8096]
     CLIENT[Externes Gerät<br/>Laptop/TV/Phone]
-end
+    end
 
 %% ===== Verbindungen =====
 
