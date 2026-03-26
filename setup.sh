@@ -1,8 +1,13 @@
 #!/bin/sh
 #set -euo pipefail
 
-printf "Eingabe: " >/dev/tty
+printf "1: " >/dev/tty
 IFS= read -r var </dev/tty
+
+ask() {
+printf "%s" "$1" >/dev/tty
+IFS= read -r REPLY </dev/tty
+}
 
 sudo apt update
 sudo apt upgrade
@@ -33,8 +38,6 @@ ask "Please enter your Password: "
 userpass="$REPLY"
 echo "goto https://login.tailscale.com/admin/settings/keys"
 echo "press Generate auth key..."
-
-
 ask "Enter your Auth Key: "
 tsauthkey="$REPLY"
 mkdir -p ~/media/music
