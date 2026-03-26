@@ -78,5 +78,10 @@ sudo usermod -aG docker "$(whoami)"
 clear
 #===== setup =====
 docker compose -f /home/$username/docker/compose.yaml up -d
-clear
+
 #tailscale funnel 8096 on
+#===== end =====
+clear
+echo "cat ./docker/compose.yaml"
+echo "$userpass"
+echo "$tsauthkey"
