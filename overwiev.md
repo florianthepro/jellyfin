@@ -1,46 +1,42 @@
 flowchart LR
-%% ===== Bereiche =====
-subgraph LOCAL[Lokales Netzwerk]
+
+%% Lokales Netzwerk
+subgraph LOCAL [Lokales Netzwerk]
 direction TB
 
-    %% Jellyfin
-    JF[Jellyfin<br/>Port 8096<br/>READ: /media]
+    JF[Jellyfin\nPort 8096\nREAD: /media]
 
-    %% Medienbibliothek
-    MB[(Medienbibliothek<br/>/home/fill-usr/media)]
+    MB[(Medienbibliothek\n/home/fill-usr/media)]
 
-    %% Downloader & Manager
-    SON[Sonarr<br/>8989<br/>WRITE: /media]
-    RAD[Radarr<br/>7878<br/>WRITE: /media]
-    QBIT[qBittorrent<br/>8080<br/>WRITE: /media]
+    SON[Sonarr\nPort 8989\nWRITE: /media]
+    RAD[Radarr\nPort 7878\nWRITE: /media]
+    QBIT[qBittorrent\nPort 8080\nWRITE: /media]
 
-    %% Seerr Request Portal
-    SEERR[Seerr<br/>5055]
+    SEERR[Seerr\nPort 5055]
 
-    %% Tailscale Node
-    TS[Tailscale Node<br/>host network<br/>Funnel Endpoint]
+    TS[Tailscale Node\nHost Network\nFunnel Endpoint]
 
-    end
+end
 
-    subgraph INTERNET[Öffentlich / Internet]
-    direction TB
-    FUNNEL[Tailscale Funnel<br/>HTTPS 443 → Jellyfin 8096]
-    CLIENT[Externes Gerät<br/>Laptop/TV/Phone]
-    end
+%% Internet
+subgraph INTERNET [Öffentlich / Internet]
+direction TB
+    FUNNEL[Tailscale Funnel\nHTTPS 443 -> Jellyfin 8096]
+    CLIENT[Externes Gerät\nLaptop / TV / Phone]
+end
 
-%% ===== Verbindungen =====
-
-%% Medienzugriff
+%% Medienzugriffe
 JF -->|read| MB
 SON -->|write| MB
 RAD -->|write| MB
 QBIT -->|write| MB
 
-%% API-Flow zwischen Services
+%% API-Flows
 SEERR -->|API| SON
 SEERR -->|API| RAD
-SON -->|API: DL Job| QBIT
-RAD -->|API: DL Job| QBIT
 
-%% Tailscale extern
+SON -->|API DL Job| QBIT
+RAD -->|API DL Job| QBIT
+
+%% Extern
 CLIENT -->|HTTPS 443| FUNNEL --> TS --> JF
