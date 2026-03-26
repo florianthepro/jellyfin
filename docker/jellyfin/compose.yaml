@@ -12,3 +12,27 @@ services:
         target: /media
         read_only: true
     restart: 'unless-stopped'
+    seerr:
+    image: ghcr.io/seerr-team/seerr:latest
+    init: true
+    container_name: seerr
+    ports:
+      - 5055:5055
+    volumes:
+      - /home/username/docker/seerr/config:/app/config
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/status || exit 1
+      start_period: 20s
+      timeout: 3s
+      interval: 15s
+      retries: 3
+    restart: unless-stopped
+sonarr:
+    image: ghcr.io/hotio/sonarr
+    volumes:
+        - /home/username/docker/sonarr/config:/config
+        - /home/username/media:/data
+    environment:
+        - PUID=111
+        - PGID=321
+        - UMASK=002
