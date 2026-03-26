@@ -17,6 +17,7 @@ Setup:
 curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/setup.sh | bash
 ```
 ---
-[//]: #mkdir -p ~/media/video/series-a/season00/s01E01.mkv & mkdir -p ~/media/video/movie-name/data like mp3 mkv etc
-[//]: #sudo tailscale funnel 8096 on
-[//]: #sudo tailscale funnel on 8096
+<!--
+mkdir -p ~/media/video/series-a/season00/s01E01.mkv & mkdir -p ~/media/video/movie-name/data like mp3 mkv etc
+sudo tailscale funnel 8096 on
+sudo tailscale funnel on 8096
