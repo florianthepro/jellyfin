@@ -1,20 +1,7 @@
 # WIP
-
-
-
-
-
-Github REPO für ziel eines vollständigen JEllyfin server welcher programme wie Sonar enthält
->`Ziel:`
-ausfüren von setup
 ```
-curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin/main/setup.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/setup.sh | sudo bash
 ```
-```
-wget -qO- https://raw.githubusercontent.com/florianthepro/jellyfin/main/setup.sh | sudo bash
-```
-passwörter ändern
-
 
 
 
@@ -24,15 +11,7 @@ passwörter ändern
 #!/usr/bin/env bash
 set -euo pipefail
 
-prompt() {
-  local input=""
-  while true; do
-    printf "%s" "$1"
-    read -r input
-    [ -n "$input" ] && echo "$input" && return 0
-    printf "Eingabe darf nicht leer sein. Bitte erneut versuchen.\n" >&2
-  done
-}
+
 
 
 
