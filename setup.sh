@@ -68,12 +68,3 @@ sudo apt update -qq -y
 sudo apt install -qq -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker "$(whoami)"
 clear
-#===== setup =====
-docker compose -f /home/$username/docker/compose.yaml up -d
-
-#tailscale funnel 8096 on
-#===== end =====
-clear
-cat ./docker/compose.yaml
-ask "done? "
-curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/setup-jellyfin.sh | bash
