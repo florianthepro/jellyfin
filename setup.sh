@@ -5,12 +5,31 @@ clear
 echo "wait for jellyfin"
 sleep 15
 clear
+
+ask "ui-culture (like 'de' or 'en'):"
+ui-culture="$REPLY"
+
+case "$ui_culture_normalized" in
+  de)
+    ui_culture="de"
+    display_language="de-de"
+    country_code="DE"
+    country_name="Germany"
+    ;;
+  en|*)
+    ui_culture="en"
+    display_language="en-us"
+    country_code="US"
+    country_name="United States"
+    ;;
+esac
+
 curl -s -X POST \
   -H "Content-Type: application/json" \
   -d '{
-    "UICulture": "de",
-    "PreferredDisplayLanguage": "de-de",
-    "MetadataCountryCode": "DE",
+    "UICulture": "$ui-culture",
+    "PreferredDisplayLanguage": "$display-language",
+    "MetadataCountryCode": "country-code",
     "MetadataCountryName": "Germany",
     "ServerName": "jellyfin"
   }' \
