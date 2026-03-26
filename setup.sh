@@ -1,6 +1,44 @@
 #===== setup =====
+addr=$(ip -4 route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="src") {print $(i+1); exit}}')
 docker compose -f /home/$username/docker/compose.yaml up -d
-docker stop jellyfin
+clear
+echo "wait for jellyfin"
+sleep 15
+clear
+curl -s -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "UICulture": "de",
+    "PreferredDisplayLanguage": "de-de",
+    "MetadataCountryCode": "DE",
+    "MetadataCountryName": "Germany",
+    "ServerName": "jellyfin"
+  }' \
+  "http://$addr:8096/Startup/Configuration"
+
+curl -s -X POST \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"Name\": \"root\",
+    \"Password\": \"DEIN_PASSWORT\",
+    \"PasswordConfirm\": \"DEIN_PASSWORT\"
+  }" \
+  "http://$addr:8096/Startup/User"
+
+curl -s -X POST \
+  -H "Content-Type: application/json" \
+  -d '{
+    "EnableRemoteAccess": true,
+    "EnableAutomaticPortMapping": true
+  }' \
+  "http://$addr:8096/Startup/RemoteAccess"
+
+curl -s -X POST "http://$addr:8096/Startup/Complete"
+
+
+
+
+
 
 #tailscale funnel 8096 on
 #===== end =====
