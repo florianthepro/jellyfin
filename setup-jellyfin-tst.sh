@@ -6,4 +6,3 @@ docker compose -f /home/$username/docker/compose.yaml up -d
 clear
 cat ./docker/compose.yaml
 ask "done? "
-curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/setup-jellyfin.sh | bash
