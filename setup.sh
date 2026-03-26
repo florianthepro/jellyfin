@@ -7,13 +7,15 @@ sudo apt upgrade
 #===== intallation =====
 
 prompt() {
-  local input=""
-  while true; do
-    printf "%s" "$1"
-    read -r input
-    [ -n "$input" ] && echo "$input" && return 0
-    printf "Eingabe darf nicht leer sein. Bitte erneut versuchen.\n" >&2
-  done
+while :; do
+printf "%s" "$1" >&2
+IFS= read -r input
+if [ -n "$input" ]; then
+printf "%s\n" "$input"
+return 0
+fi
+printf "Eingabe darf nicht leer sein. Bitte erneut versuchen.\n" >&2
+done
 }
 
 echo "goto https://login.tailscale.com/admin/acls/file"
