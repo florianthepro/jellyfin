@@ -11,6 +11,18 @@ prompt() {
   done
 }
 
+echo "goto https://login.tailscale.com/admin/acls/file"
+echo "press Edit anyway..."
+echo "add"
+cat <<'END'
+	"nodeAttrs": [
+		{
+			"target": ["autogroup:member"],
+			"attr":   ["funnel"]
+		}
+	]
+END
+
 username="$(whoami)"
 userid="$(id -u)"
 groupid="$(id -g)"
