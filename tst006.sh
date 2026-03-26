@@ -1,5 +1,6 @@
 #!/bin/sh
 set -euo pipefail
+sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
 ask() {
 printf "%s" "$1" >/dev/tty
 IFS= read -r REPLY </dev/tty
