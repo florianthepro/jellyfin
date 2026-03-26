@@ -1,6 +1,7 @@
 #!/bin/sh
 clear
 set -euo pipefail
+cd /home/$(whoami)
 sudo apt update -y
 sudo apt upgrade -y
 
@@ -82,6 +83,5 @@ docker compose -f /home/$username/docker/compose.yaml up -d
 #tailscale funnel 8096 on
 #===== end =====
 clear
-echo "cat ./docker/compose.yaml"
-echo "$userpass"
-echo "$tsauthkey"
+cat ./docker/compose.yaml
+ask "done? "
