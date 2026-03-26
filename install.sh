@@ -41,8 +41,8 @@ clear
 ask "language ('de' or 'en'):"
 language="$REPLY"
 
-ui_culture_normalized=$(printf '%s' "$ui_culture" | tr 'A-Z' 'a-z')
-case "$ui_culture_normalized" in
+#ui_culture_normalized=$(printf '%s' "$ui_culture" | tr 'A-Z' 'a-z')
+case "$language" in
 de|en)
 break
 ;;
