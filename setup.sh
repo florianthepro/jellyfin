@@ -31,7 +31,7 @@ mkdir -p ~/docker/sonarr
 mkdir -p ~/docker/radarr
 mkdir -p ~/docker/qbittorrent
 curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/compose.yaml -o ~/docker/compose.yaml
-sed -i "s|username|$username|g" ~/docker/compose.yaml
-sed -i "s|tskey-REPLACE-ME|$tsauthkey|g" ~/docker/compose.yaml
+sed -i "s|fill-usr|$username|g" ~/docker/compose.yaml
+sed -i "s|fill-key|$tsauthkey|g" ~/docker/compose.yaml
 docker install
 compose up
