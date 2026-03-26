@@ -16,13 +16,13 @@ mkdir -p ~/docker/jellyfin
 curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/docker/jellyfin/compose.yaml -o ~/docker/jellyfin/compose.yaml
 sed -i "s|username|$username|g" ~/docker/jellyfin/compose.yaml
 
-#mkdir -p ~/docker/sonarr
-#curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/docker/sonarr/compose.yaml -o ~/docker/sonarr/compose.yaml
-#sed -i "s|username|$username|g" ~/docker/sonarr/compose.yaml
-
 #mkdir -p ~/docker/seerr
 #curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/docker/seerr/compose.yaml -o ~/docker/seerr/compose.yaml
 #sed -i "s|username|$username|g" ~/docker/seerr/compose.yaml
+
+#mkdir -p ~/docker/sonarr
+#curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/docker/sonarr/compose.yaml -o ~/docker/sonarr/compose.yaml
+#sed -i "s|username|$username|g" ~/docker/sonarr/compose.yaml
 
 #mkdir -p ~/docker/radarr
 #curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/docker/radarr/compose.yaml -o ~/docker/radarr/compose.yaml
