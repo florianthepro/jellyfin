@@ -4,11 +4,6 @@ docker compose -f /home/$username/docker/compose.yaml up -d
 clear
 echo "wait for jellyfin"
 sleep 15
-ask() {
-printf "%s" "$1" >/dev/tty
-IFS= read -r REPLY </dev/tty
-}
-
 
 curl -s -X POST \
   -H "Content-Type: application/json" \
@@ -40,21 +35,15 @@ curl -s -X POST \
 
 curl -s -X POST "http://$addr:8096/Startup/Complete"
 
-
-
-
-
-
+ask "enden? "
 #tailscale funnel 8096 on
 #===== end =====
 clear
-cat ./docker/compose.yaml
-ask "done? "
+#cat ./docker/compose.yaml
+
 
 
 ziel:
-5. jellyfin auto-setup:
-   erster user: admin / Password123!
    bibliothek "Serien" → /home/jellyfin/series
 6. seerr installieren (seerr-compose.yaml aus repo)
    auto-setup admin / Password123!
