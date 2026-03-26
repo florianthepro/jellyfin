@@ -1,4 +1,5 @@
 #!/bin/sh
+curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/cleanup.sh | sudo bash
 clear
 set -euo pipefail
 cd /home/$(whoami)
