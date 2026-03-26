@@ -75,15 +75,8 @@ ask "Enter your Auth Key: "
 tsauthkey="$REPLY"
 
 clear
-mkdir -p ~/media/music
-mkdir -p ~/media/video
-mkdir -p ~/media/books
-mkdir -p ~/docker
-mkdir -p ~/docker/jellyfin
-mkdir -p ~/docker/seerr
-mkdir -p ~/docker/sonarr
-mkdir -p ~/docker/radarr
-mkdir -p ~/docker/qbittorrent
+mkdir -p ~/media/{music,video,books}
+mkdir -p ~/docker/{jellyfin,seerr,sonarr,radarr,qbittorrent}
 
 sudo curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/compose.yaml -o ~/docker/compose.yaml
 sed -i "s/fill-usr/$username/g" ~/docker/compose.yaml
