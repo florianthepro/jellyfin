@@ -1,3 +1,10 @@
+![WIP](https://img.shields.io/badge/status-WIP-yellow?style=for-the-badge)
+![WIP](https://img.shields.io/badge/WIP-in%20progress-yellow)
+![WIP](https://img.shields.io/badge/WIP-working-yellowgreen)
+![WIP](https://img.shields.io/badge/WIP-not%20finished-red)
+![WIP](https://img.shields.io/badge/WIP-Work_in_Progress-orange)
+![WIP](https://img.shields.io/badge/WIP-active-orange?style=flat-square)
+![WIP](https://img.shields.io/badge/WIP-in%20progress-blueviolet?logoColor=white)
 ```
 ██     ██ ██ ██████  
 ██     ██ ██ ██   ██ 
