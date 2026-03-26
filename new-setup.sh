@@ -94,14 +94,14 @@ sudo apt install -qq -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 sudo usermod -aG docker "$(whoami)"
 clear
 #===== setup =====
-: <<'EEOF'
+
 #===== setup =====
 addr=$(ip -4 route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="src") {print $(i+1); exit}}')
 clear
 docker compose -f /home/$username/docker/compose.yaml up -d
 echo "wait for jellyfin"
 sleep 15
-
+: <<'EEOF'
 curl -s -X POST \
   -H "Content-Type: application/json" \
   -d "{
@@ -131,7 +131,7 @@ curl -s -X POST \
   "http://$addr:8096/Startup/RemoteAccess"
 
 curl -s -X POST "http://$addr:8096/Startup/Complete"
-
+EEOF
 clear
 echo "http://$addr:8096/"
 echo "$username"
@@ -171,4 +171,4 @@ ziel:
 15. configuration sauber setzen (basisoptionen)
 16. css laden
 EOF
-EEOF
+
