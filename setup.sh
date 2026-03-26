@@ -1,9 +1,11 @@
 #!/bin/sh
 set -euo pipefail
+
 ask() {
 printf "%s" "$1" >/dev/tty
 IFS= read -r REPLY </dev/tty
 }
+
 ask "Bitte Eingabe: "
 var="$REPLY"
 
