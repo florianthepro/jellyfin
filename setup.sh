@@ -1,13 +1,8 @@
 #!/bin/sh
-HOME_DIR="/home/$TARGET_USER"
-DOCKER_DIR="$HOME_DIR/docker"
-JELLYFIN_BASE="$DOCKER_DIR/jellyfin"
-JELLYFIN_CONFIG_DIR="$JELLYFIN_BASE/config"
-JELLYFIN_CACHE_DIR="$JELLYFIN_BASE/cache"
-JELLYFIN_SERIES_DIR="$JELLYFIN_BASE/series"
-JELLYFIN_MOVIES_DIR="$JELLYFIN_BASE/movies"
-SEERR_CONFIG_DIR="$DOCKER_DIR/seerr/config"
-SONARR_CONFIG_DIR="$DOCKER_DIR/sonarr/config"
-RADARR_CONFIG_DIR="$DOCKER_DIR/radarr/config"
-QBIT_CONFIG_DIR="$DOCKER_DIR/qbittorrent/config"
-DOWNLOADS_DIR="$DOCKER_DIR/downloads"
+apt update
+apt upgrade
+apt install unattended-upgrades
+unattended-upgrade
+mkdir -p ~/docker/jellyfin
+mkdir -p ~/docker
+mkdir -p ~/docker
