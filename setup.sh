@@ -6,17 +6,14 @@ sudo apt upgrade
 
 #===== intallation =====
 
-prompt() {
+ask_yes_no() {
 while :; do
-printf "%s" "$1" >&2
-IFS= read -r input
-if [ -n "$input" ]; then
-printf "%s\n" "$input"
-return 0
-fi
-printf "Eingabe darf nicht leer sein. Bitte erneut versuchen.\n" >&2
-done
-}
+printf "%s [y/n]: " "$1" >&2
+IFS= read -r answer
+case "$answer" in
+y|Y) return 0 ;;
+n|N) return 1 ;;
+*) printf "Bitte y
 
 echo "goto https://login.tailscale.com/admin/acls/file"
 echo "press Edit anyway..."
