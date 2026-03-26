@@ -105,4 +105,3 @@ text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,sans-
 <path class="link-funnel" d="M975 200 L975 260" marker-end="url(#arrowFunnel)"/>
 <text class="link-label" x="985" y="230">HTTPS 443</text>
 </svg>
-``
