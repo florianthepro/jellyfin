@@ -25,7 +25,7 @@ apt upgrade
 mkdir -p ~/media/music
 mkdir -p ~/media/video
 mkdir -p ~/media/books
-mkdir -p ~/docker
+mkdir ~/docker
 mkdir -p ~/docker/jellyfin
 mkdir -p ~/docker/seerr
 mkdir -p ~/docker/sonarr
