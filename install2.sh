@@ -51,7 +51,7 @@ break
 esac
 done
 
-case "$ui_culture_normalized" in
+case "$language" in
   de)
     ui_culture="de"
     display_language="de-de"
