@@ -53,11 +53,11 @@ cat <<'END'
 END
 ask "Enter your Auth Key: "
 tsauthkey="$REPLY"
-
+#error
 mkdir -p ~/media/music
 mkdir -p ~/media/video
 mkdir -p ~/media/books
-mkdir ~/docker
+mkdir -p ~/docker
 mkdir -p ~/docker/jellyfin
 mkdir -p ~/docker/seerr
 mkdir -p ~/docker/sonarr
