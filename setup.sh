@@ -1,6 +1,9 @@
 #!/bin/sh
 set -euo pipefail
 
+sudo apt update
+sudo apt upgrade
+
 prompt() {
   local input=""
   while true; do
@@ -36,8 +39,6 @@ echo "goto https://login.tailscale.com/admin/settings/keys"
 echo "press Generate auth key..."
 tsauthkey="$(prompt "enter your Auth Key: ")"
 
-apt update
-apt upgrade
 mkdir -p ~/media/music
 mkdir -p ~/media/video
 mkdir -p ~/media/books
