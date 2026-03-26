@@ -8,36 +8,7 @@ ask() {
 printf "%s" "$1" >/dev/tty
 IFS= read -r REPLY </dev/tty
 }
-while :; do
 
-clear
-ask "ui-culture (like 'de' or 'en'):"
-language="$REPLY"
-
-ui_culture_normalized=$(printf '%s' "$ui_culture" | tr 'A-Z' 'a-z')
-case "$ui_culture_normalized" in
-de|en)
-break
-;;
-*)
-;;
-esac
-done
-
-case "$ui_culture_normalized" in
-  de)
-    ui_culture="de"
-    display_language="de-de"
-    country_code="DE"
-    country_name="Germany"
-    ;;
-  en|*)
-    ui_culture="en"
-    display_language="en-us"
-    country_code="US"
-    country_name="United States"
-    ;;
-esac
 
 curl -s -X POST \
   -H "Content-Type: application/json" \
@@ -53,7 +24,7 @@ curl -s -X POST \
 curl -s -X POST \
   -H "Content-Type: application/json" \
   -d "{
-    \"Name\": \"root\",
+    \"Name\": \"$username\",
     \"Password\": \"$userpass\",
     \"PasswordConfirm\": \"$userpass\"
   }" \
