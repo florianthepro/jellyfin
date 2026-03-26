@@ -1,10 +1,15 @@
 #!/bin/sh
 set -euo pipefail
-sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
 ask() {
 printf "%s" "$1" >/dev/tty
 IFS= read -r REPLY </dev/tty
 }
+sudo rm -rf *
+clear
+dir
+ask "done? "
+sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
+ask "done? "
 sudo apt update -qq -y
 sudo apt upgrade -qq -y
 #===== intallation =====
