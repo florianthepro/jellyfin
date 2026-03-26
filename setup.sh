@@ -3,7 +3,9 @@
 username="$(whoami)"
 userid="$(id -u)"
 groupid="$(id -g)"
+echo enter user password
 userpass="Password123!"
+echo enter tailsclae key get from https://login.tailscale.com/admin/settings/keys Auth keys
 tsauthkey="key"
 apt update
 apt upgrade
