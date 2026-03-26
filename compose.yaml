@@ -5,9 +5,9 @@ services:
     ports:
       - 8096:8096/tcp
     volumes:
-      - /home/username/docker/jellyfin/config:/config
-      - /home/username/docker/jellyfin/cache:/cache
-      - /home/username/media:/media:ro
+      - /home/fill-usr/docker/jellyfin/config:/config
+      - /home/fill-usr/docker/jellyfin/cache:/cache
+      - /home/fill-usr/media:/media:ro
     restart: unless-stopped
 
   seerr:
@@ -17,7 +17,7 @@ services:
     ports:
       - 5055:5055
     volumes:
-      - /home/username/docker/seerr/config:/app/config
+      - /home/fill-usr/docker/seerr/config:/app/config
     restart: unless-stopped
 
   sonarr:
@@ -26,8 +26,8 @@ services:
     ports:
       - 8989:8989
     volumes:
-      - /home/username/docker/sonarr/config:/config
-      - /home/username/media:/data
+      - /home/fill-usr/docker/sonarr/config:/config
+      - /home/fill-usr/media:/data
     restart: unless-stopped
 
   radarr:
@@ -36,16 +36,16 @@ services:
     ports:
       - 7878:7878
     volumes:
-      - /home/username/docker/radarr/config:/config
-      - /home/username/media:/data
+      - /home/fill-usr/docker/radarr/config:/config
+      - /home/fill-usr/media:/data
     restart: unless-stopped
 
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
     volumes:
-      - /home/username/docker/qbittorrent/config:/config
-      - /home/username/media:/downloads
+      - /home/fill-usr/docker/qbittorrent/config:/config
+      - /home/fill-usr/media:/downloads
     ports:
       - 8080:8080
     restart: unless-stopped
@@ -55,10 +55,10 @@ services:
     container_name: tailscale
     hostname: jellyfin
     environment:
-      - TS_AUTHKEY=tskey-REPLACE-ME
+      - TS_AUTHKEY=fill-key
       - TS_STATE_DIR=/var/lib/tailscale
     volumes:
-      - /home/username/docker/tailscale/state:/var/lib/tailscale
+      - /home/fill-usr/docker/tailscale/state:/var/lib/tailscale
       - /dev/net/tun:/dev/net/tun
     network_mode: host
     cap_add:
