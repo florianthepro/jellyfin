@@ -4,6 +4,10 @@ docker compose -f /home/$username/docker/compose.yaml up -d
 clear
 echo "wait for jellyfin"
 sleep 15
+ask() {
+printf "%s" "$1" >/dev/tty
+IFS= read -r REPLY </dev/tty
+}
 while :; do
 
 clear
@@ -37,20 +41,20 @@ esac
 
 curl -s -X POST \
   -H "Content-Type: application/json" \
-  -d '{
-    "UICulture": "$language",
-    "PreferredDisplayLanguage": "$display-language",
-    "MetadataCountryCode": "country-code",
-    "MetadataCountryName": "Germany",
-    "ServerName": "jellyfin"
-  }' \
+  -d "{
+    \"UICulture\": \"$language\",
+    \"PreferredDisplayLanguage\": \"$display_language\",
+    \"MetadataCountryCode\": \"$country_code\",
+    \"MetadataCountryName\": \"$country_name\",
+    \"ServerName\": \"jellyfin\"
+  }" \
   "http://$addr:8096/Startup/Configuration"
 
 curl -s -X POST \
   -H "Content-Type: application/json" \
   -d "{
     \"Name\": \"root\",
-    \"Password\": \"DEIN_PASSWORT\",
+    \"Password\": \"$passw\",
     \"PasswordConfirm\": \"DEIN_PASSWORT\"
   }" \
   "http://$addr:8096/Startup/User"
