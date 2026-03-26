@@ -5,8 +5,7 @@ cd /home/$(whoami)
 sudo apt update -y
 sudo apt upgrade -y
 
-sudo rm -rf *
-sudo apt remove $(dpkg --get-selections docker.io docker-compose docker-compose-v2 docker-doc podman-docker containerd runc | cut -f1)
+
 
 ask() {
 printf "%s" "$1" >/dev/tty
