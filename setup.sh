@@ -1,4 +1,10 @@
 #!/bin/sh
+
+username="$(whoami)"
+userid="$(id -u)"
+groupid="$(id -g)"
+userpass="Password123!"
+
 apt update
 apt upgrade
 mkdir -p ~/media/music
