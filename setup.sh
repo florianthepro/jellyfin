@@ -7,6 +7,17 @@ echo enter user password
 userpass="Password123!"
 echo enter tailsclae key get from https://login.tailscale.com/admin/settings/keys Auth keys
 tsauthkey="key"
+go to 
+https://login.tailscale.com/admin/acls/file
+"""""
+add
+	"nodeAttrs": [
+		{
+			"target": ["autogroup:member"],
+			"attr":   ["funnel"]
+		}
+	]
+  """""
 apt update
 apt upgrade
 mkdir -p ~/media/music
