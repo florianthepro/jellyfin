@@ -54,8 +54,8 @@ curl -s -X POST \
   -H "Content-Type: application/json" \
   -d "{
     \"Name\": \"root\",
-    \"Password\": \"$passw\",
-    \"PasswordConfirm\": \"DEIN_PASSWORT\"
+    \"Password\": \"$userpass\",
+    \"PasswordConfirm\": \"$userpass\"
   }" \
   "http://$addr:8096/Startup/User"
 
