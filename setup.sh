@@ -4,6 +4,7 @@ username="$(whoami)"
 userid="$(id -u)"
 groupid="$(id -g)"
 userpass="Password123!"
+tsauthkey="key"
 apt update
 apt upgrade
 mkdir -p ~/media/music
@@ -18,5 +19,6 @@ mkdir -p ~/docker/radarr
 mkdir -p ~/docker/qbittorrent
 curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/compose.yaml -o ~/docker/compose.yaml
 sed -i "s|username|$username|g" ~/docker/compose.yaml
+sed -i "s|tskey-REPLACE-ME|$tsauthkey|g" ~/docker/compose.yaml
 docker install
 compose up
