@@ -1,5 +1,4 @@
 #!/bin/sh
-#curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/setup.sh | sudo bash
 set -euo pipefail
 username="$(whoami)"
 userid="$(id -u)"
