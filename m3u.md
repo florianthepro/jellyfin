@@ -1,4 +1,4 @@
-
+3MU epg xml: ```https://epg.pw/xmltv/epg.xml```
 
 ```
 #EXTM3U
