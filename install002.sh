@@ -59,11 +59,11 @@ docker compose -f /home/$username/docker/compose.yaml up -d
 echo "wait for jellyfin"
 sleep 15
 
-echo "jellyfin:"
-echo "http://$addr:8096/"
-echo ""
 echo "jellyfin via tailscale:"
 echo "http://$addr"
+echo ""
+echo "jellyfin:"
+echo "http://$addr:8096/"
 echo ""
 echo "seerr:"
 echo "http://$addr:5055/"
