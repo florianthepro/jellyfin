@@ -56,7 +56,7 @@ sudo apt install -qq -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 sudo usermod -aG docker "$(whoami)"
 clear
 docker compose -f /home/$username/docker/compose.yaml up -d
-sudo docker exec -it tailscale tailscale funnel -bg 8096
+sudo docker exec -i tailscale tailscale funnel -bg 8096
 #===== end ======
 echo "wait for jellyfin"
 sleep 15
