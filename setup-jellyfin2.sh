@@ -36,3 +36,5 @@ curl -fsS -X POST "$jellyfin_url/Startup/RemoteAccess" \
 -d "{\"EnableRemoteAccess\":$jellyfin_remote_access,\"EnableAutomaticPortMapping\":$jellyfin_remote_upnp}" \
 
 curl -fsS -X POST "$jellyfin_url/Startup/Complete"
+#=================
+curl -fsS http://127.0.0.1:8096/System/Info/Public
