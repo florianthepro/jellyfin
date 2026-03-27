@@ -21,7 +21,53 @@ country_code="DE"
 country_name="Germany"
 userpass="Password123!"
 #===========================================================
+#!/bin/sh
+set -eu
+if (set -o pipefail >/dev/null 2>&1); then :; fi
+cd "/home/$(whoami)"
 
+jellyfin_name="jellyfin-server"
+jellyfin_url="http://127.0.0.1:8096"
+jellyfin_language="de-DE"
+jellyfin_metadata_language="de"
+jellyfin_metadata_country="DE"
+jellyfin_admin_user="admin"
+jellyfin_admin_password="SehrSicheresPasswort123!"
+jellyfin_remote_access="false"
+jellyfin_remote_upnp="false"
+#
+echo "Warte auf Jellyfin unter $jellyfin_url ..."
+tries=0
+max_tries=60
+while :; do
+curl -fsS "$jellyfin_url/System/Info/Public" >/dev/null 2>&1 && break || :
+tries=$((tries + 1))
+[ "$tries" -ge "$max_tries" ] && { echo "Fehler: Jellyfin unter $jellyfin_url nicht erreichbar."; exit 1; }
+sleep 1
+done
+
+info_json="$(curl -fsS "$jellyfin_url/System/Info/Public")"
+echo "$info_json" | grep -qi "\"StartupWizardCompleted\":true" && {
+echo "Startup-Wizard ist bereits abgeschlossen, nichts zu tun."
+exit 0
+}
+#
+curl -fsS -X POST "$jellyfin_url/Startup/Configuration" \
+-H "Content-Type: application/json" \
+-d "{\"MetadataCountryCode\":\"$jellyfin_metadata_country\",\"PreferredMetadataLanguage\":\"$jellyfin_metadata_language\",\"UICulture\":\"$jellyfin_language\"}" \
+>/dev/null
+
+curl -fsS -X POST "$jellyfin_url/Startup/User" \
+-H "Content-Type: application/json" \
+-d "{\"Name\":\"$jellyfin_admin_user\",\"Password\":\"$jellyfin_admin_password\"}" \
+>/dev/null
+
+curl -fsS -X POST "$jellyfin_url/Startup/RemoteAccess" \
+-H "Content-Type: application/json" \
+-d "{\"EnableRemoteAccess\":$jellyfin_remote_access,\"EnableAutomaticPortMapping\":$jellyfin_remote_upnp}" \
+>/dev/null
+
+curl -fsS -X POST "$jellyfin_url/Startup/Complete" >/dev/null
 #=======================================================
 clear
 echo "http://$addr:8096/"
