@@ -54,14 +54,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 sudo apt update -qq -y
 sudo apt install -qq -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker "$(whoami)"
-
-clear
-
-: <<'END'
-use: "sudo chown -R 1000:1000 ~/docker/seerr/config"
-END
-echo "ssh $username@$addr"
-ask "done? "
+sudo chown -R 1000:1000 /home/$username/docker/seerr/config"
 
 clear
 
