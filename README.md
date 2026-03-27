@@ -42,6 +42,7 @@ QBIT -->|write| MB
 
 %% API-Flow zwischen Services
 SEERR -->|API| SON
+SEERR -->|API| JF
 SEERR -->|API| RAD
 SON -->|API: DL Job| QBIT
 RAD -->|API: DL Job| QBIT
