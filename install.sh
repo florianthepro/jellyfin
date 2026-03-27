@@ -54,7 +54,15 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 sudo apt update -qq -y
 sudo apt install -qq -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker "$(whoami)"
-sudo chown -R $(id -u):$(id -g) ~/docker && sudo chmod -R u+rwX ~/docker
+
+#DOCKER_GID=$(getent group docker | cut -d: -f3)
+#DOCKER_UID=$(getent passwd "$username" | cut -d: -f3)
+#DOCKER_GID=$(getent passwd "$username" | cut -d: -f4)
+#sudo chown -R "$DOCKER_UID:$DOCKER_GID" /home/$username/docker
+#sudo chmod -R u+rwX /home/$username/docker
+
+#sudo chown -R $(id -u):$(id -g) ~/docker && sudo chmod -R u+rwX ~/docker
+
 clear
 docker compose -f /home/$username/docker/compose.yaml up -d
 sudo docker exec tailscale tailscale funnel -bg 8096
