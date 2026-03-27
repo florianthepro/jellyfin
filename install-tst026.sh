@@ -56,7 +56,8 @@ sudo apt install -qq -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 sudo usermod -aG docker "$(whoami)"
 
 DOCKER_UID=$(getent passwd "$username" | cut -d: -f3)
-DOCKER_GID=$(getent passwd "$username" | cut -d: -f4)
+#DOCKER_GID=$(getent passwd "$username" | cut -d: -f4)
+DOCKER_GID=$(getent group docker | cut -d: -f3)
 echo "$DOCKER_UID"
 echo "$DOCKER_GID"
 
