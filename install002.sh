@@ -25,14 +25,14 @@ cat <<'END'
 >goto https://login.tailscale.com/admin/acls/file
 >press "Edit anyway..."
 >add:
-====================
+
 	"nodeAttrs": [
 		{
 			"target": ["autogroup:member"],
 			"attr":   ["funnel"]
 		}
 	]
-===================
+
 END
 ask "done? "
 
