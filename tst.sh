@@ -61,7 +61,7 @@ sudo usermod -aG docker "$(whoami)"
 #sudo chown -R "$DOCKER_UID:$DOCKER_GID" /home/$username/docker
 #sudo chmod -R u+rwX /home/$username/docker
 
-sudo chown -R $(id -u):$(id -g) ~/docker && sudo chmod -R u+rwX ~/docker
+sudo chown -R $(id -u):$(id -g) ~/docker && sudo chmod -R u+rwX ~/docker | bash -x
 
 clear
 docker compose -f /home/$username/docker/compose.yaml up -d
