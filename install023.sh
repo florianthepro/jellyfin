@@ -17,6 +17,8 @@ clear
 cat <<'END'
 >goto "https://login.tailscale.com/admin/settings/keys"
 >press "Generate auth key..."
+>press "Pre-approved"
+>press "Generate Key"
 END
 ask "Enter your Auth Key: "
 tsauthkey="$REPLY"
