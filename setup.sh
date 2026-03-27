@@ -18,6 +18,7 @@ ui_culture="de"
 display_language="de-de"
 country_code="DE"
 country_name="Germany"
+userpass="Password123!"
 
 curl -s -X POST \
   -H "Content-Type: application/json" \
