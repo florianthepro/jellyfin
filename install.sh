@@ -45,9 +45,6 @@ sudo curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-s
 sudo sed -i "s/fill-usr/$username/g" ~/docker/compose.yaml
 sudo sed -i "s/fill-key/$tsauthkey/g" ~/docker/compose.yaml
 
-sudo chown -R 1000:1000 /home/$username/docker
-sudo chmod -R u+rwX /home/$username/docker
-
 #===== docker =====
 sudo apt update -qq -y
 sudo apt install -qq -y ca-certificates curl gnupg
@@ -57,6 +54,12 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 sudo apt update -qq -y
 sudo apt install -qq -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker "$(whoami)"
+
+DOCKER_UID=$(id -u)
+DOCKER_GID=$(id -g)
+sudo chown -R "$DOCKER_UID:$DOCKER_GID" /home/$username/docker
+sudo chmod -R u+rwX /home/$username/docker
+
 clear
 docker compose -f /home/$username/docker/compose.yaml up -d
 sudo docker exec tailscale tailscale funnel -bg 8096
