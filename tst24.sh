@@ -66,14 +66,14 @@ echo "$DOCKER_GID" | bash -x
 
 sudo chown -R $(id -u):$(id -g) ~/docker && sudo chmod -R u+rwX ~/docker | bash -x
 
-clear
+#clear
 docker compose -f /home/$username/docker/compose.yaml up -d
 sudo docker exec tailscale tailscale funnel -bg 8096
 #===== end ======
 echo "wait for jellyfin"
 sleep 15
 tcaddr=$(docker exec tailscale tailscale status --json | jq -r '.Self.DNSName' | sed 's/\.$//')
-clear
+#clear
 echo "jellyfin via tailscale:"
 echo "http://$tcaddr"
 echo ""
