@@ -53,7 +53,7 @@ services:
   tailscale:
     image: tailscale/tailscale:latest
     container_name: tailscale
-    hostname: jellyfin
+    hostname: fill-hostname
     environment:
       - TS_AUTHKEY=fill-key
       - TS_STATE_DIR=/var/lib/tailscale
