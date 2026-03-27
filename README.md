@@ -49,6 +49,7 @@ RAD -->|API: DL Job| QBIT
 %% Tailscale extern
 CLIENT -->|HTTPS 443| FUNNEL --> TS --> JF
 ```
+---
 SSH:
 ```
 curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/ssh.sh | sudo bash
