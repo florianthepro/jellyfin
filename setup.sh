@@ -36,21 +36,8 @@ jellyfin_admin_password="SehrSicheresPasswort123!"
 jellyfin_remote_access="false"
 jellyfin_remote_upnp="false"
 #
-echo "Warte auf Jellyfin unter $jellyfin_url ..."
-tries=0
-max_tries=60
-while :; do
-curl -fsS "$jellyfin_url/System/Info/Public" >/dev/null 2>&1 && break || :
-tries=$((tries + 1))
-[ "$tries" -ge "$max_tries" ] && { echo "Fehler: Jellyfin unter $jellyfin_url nicht erreichbar."; exit 1; }
-sleep 1
-done
-
-info_json="$(curl -fsS "$jellyfin_url/System/Info/Public")"
-echo "$info_json" | grep -qi "\"StartupWizardCompleted\":true" && {
-echo "Startup-Wizard ist bereits abgeschlossen, nichts zu tun."
-exit 0
-}
+echo "Warte bis der Jellyfin‑Wizard erreichbar ist ..."
+until curl -fsS "http://127.0.0.1:8096/System/Info/Public" >/dev/null 2>&1; do
 #
 curl -fsS -X POST "$jellyfin_url/Startup/Configuration" \
 -H "Content-Type: application/json" \
