@@ -9,13 +9,18 @@ sudo systemctl restart ssh
 ip -4 addr show
 #connect: ssh user@ip
 ```
-<!--
+SSH:
+```
+curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/ssh.sh | sudo bash
+```
 Reset:
 ```
 curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/cleanup.sh | sudo bash
 ```
--->
----
+Install:
+```
+curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/install.sh | bash
+```
 Setup:
 ```
 curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/setup.sh | bash
