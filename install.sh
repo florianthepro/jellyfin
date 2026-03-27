@@ -58,12 +58,12 @@ sudo chown -R 1000:1000 /home/$username/docker/seerr/config
 
 clear
 docker compose -f /home/$username/docker/compose.yaml up -d
-echo "wait"
+echo ""
 sleep 5
 sudo docker exec tailscale tailscale funnel -bg 8096
 tcaddr=$(docker exec tailscale tailscale status --json | jq -r '.Self.DNSName' | sed 's/\.$//')
 #===== end ======
-echo "wait"
+echo ""
 sleep 5
 echo "jellyfin via tailscale:"
 echo "https://$tcaddr"
