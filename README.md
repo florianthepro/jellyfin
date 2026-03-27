@@ -56,7 +56,7 @@ curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setu
 ```
 Reset all. > ONLY! test devices
 ```
-curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/reset.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/reset.sh | sudo bash && curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/install.sh | bash
 ```
 Install:
 ```
