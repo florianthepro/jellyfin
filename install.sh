@@ -10,7 +10,7 @@ ask() {
 printf "%s" "$1" >/dev/tty
 IFS= read -r REPLY </dev/tty
 }
-hostname=""
+hostname=$(hostname)
 addr=$(ip -4 route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="src") {print $(i+1); exit}}')
 username="$(whoami)"
 clear
