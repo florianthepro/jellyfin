@@ -10,7 +10,7 @@ ask() {
 printf "%s" "$1" >/dev/tty
 IFS= read -r REPLY </dev/tty
 }
-hostname=$(hostname)
+name=$(hostname)
 addr=$(ip -4 route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="src") {print $(i+1); exit}}')
 username="$(whoami)"
 clear
@@ -44,7 +44,7 @@ sudo mkdir -p ~/docker/seerr/config
 sudo curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/compose.yaml -o ~/docker/compose.yaml
 sudo sed -i "s/fill-usr/$username/g" ~/docker/compose.yaml
 sudo sed -i "s/fill-key/$tsauthkey/g" ~/docker/compose.yaml
-sudo sed -i "s/fill-hostname/$hostname/g" ~/docker/compose.yaml
+sudo sed -i "s/fill-hostname/$name/g" ~/docker/compose.yaml
 
 #===== docker =====
 sudo apt update -qq -y
