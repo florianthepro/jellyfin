@@ -40,7 +40,7 @@ ask "done? "
 
 sudo mkdir -p ~/media/{music,video,books}
 sudo mkdir -p ~/docker/{jellyfin,seerr,sonarr,radarr,qbittorrent}
-
+sudo mkdir -p ~/docker/seerr/config
 sudo curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/compose.yaml -o ~/docker/compose.yaml
 sudo sed -i "s/fill-usr/$username/g" ~/docker/compose.yaml
 sudo sed -i "s/fill-key/$tsauthkey/g" ~/docker/compose.yaml
@@ -54,14 +54,7 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 sudo apt update -qq -y
 sudo apt install -qq -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker "$(whoami)"
-
-#DOCKER_GID=$(getent group docker | cut -d: -f3)
-#DOCKER_UID=$(getent passwd "$username" | cut -d: -f3)
-#DOCKER_GID=$(getent passwd "$username" | cut -d: -f4)
-#sudo chown -R "$DOCKER_UID:$DOCKER_GID" /home/$username/docker
-#sudo chmod -R u+rwX /home/$username/docker
-
-#sudo chown -R $(id -u):$(id -g) ~/docker && sudo chmod -R u+rwX ~/docker
+chown -R 1000:1000 ~/docker/seerr/config
 
 clear
 docker compose -f /home/$username/docker/compose.yaml up -d
