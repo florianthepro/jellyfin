@@ -60,7 +60,7 @@ sudo docker exec tailscale tailscale funnel -bg 8096
 #===== end ======
 echo "wait for jellyfin"
 sleep 15
-tcaddr=""
+tcaddr=$(docker exec tailscale tailscale status --json | jq -r '.Self.DNSName' | sed 's/\.$//')
 clear
 echo "jellyfin via tailscale:"
 echo "http://$tcaddr"
