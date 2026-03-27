@@ -55,10 +55,12 @@ sudo apt update -qq -y
 sudo apt install -qq -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker "$(whoami)"
 
+username="$(whoami)"
 DOCKER_UID=$(getent passwd "$username" | cut -d: -f3)
 DOCKER_GID=$(getent group docker | cut -d: -f3)
 echo "$DOCKER_UID"
 echo "$DOCKER_GID"
+
 sudo chown -R "$DOCKER_UID:$DOCKER_GID" /home/$username/docker
 sudo chmod -R u+rwX /home/$username/docker
 
