@@ -69,7 +69,7 @@ curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setu
 ```
 Install:
 ```
-curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/install-v027.sh | bash
+curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/install-v028.sh | bash
 ```
 Setup:
 ```
