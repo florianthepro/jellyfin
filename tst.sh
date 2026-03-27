@@ -1,1 +1,1 @@
-
+curl -H 'Cache-Control: no-cache, no-store, must-revalidate' -H 'Pragma: no-cache' -H 'Expires: 0' -sSL "https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/reset.sh?$(date +%s)" | sudo bash && curl -H 'Cache-Control: no-cache, no-store, must-revalidate' -H 'Pragma: no-cache' -H 'Expires: 0' -sSL "https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/install.sh?$(date +%s)" | bash
