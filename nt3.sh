@@ -59,9 +59,11 @@ sudo chown -R 1000:1000 /home/$username/docker/seerr/config
 clear
 
 docker compose -f /home/$username/docker/compose.yaml up -d
+ask "done1? "
 sudo docker exec tailscale tailscale funnel -bg 8096
+ask "done2? "
 tcaddr=$(docker exec tailscale tailscale status --json | jq -r '.Self.DNSName' | sed 's/\.$//')
-
+ask "done3? "
 #===== end ======
 
 echo "wait for jellyfin"
