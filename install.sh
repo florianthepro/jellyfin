@@ -60,6 +60,7 @@ clear
 : <<'END'
 use: "sudo chown -R 1000:1000 ~/docker/seerr/config"
 END
+echo "ssh $username@$addr"
 ask "done? "
 
 clear
