@@ -3,9 +3,6 @@
 set -euo pipefail
 cd /home/$(whoami)
 
-sudo apt update -y
-sudo apt upgrade -y
-
 ask() {
 printf "%s" "$1" >/dev/tty
 IFS= read -r REPLY </dev/tty
