@@ -5,6 +5,11 @@ cd /home/$(whoami)
 
 username="$(whoami)"
 
+ask() {
+printf "%s" "$1" >/dev/tty
+IFS= read -r REPLY </dev/tty
+}
+
 DOCKER_GID=$(getent group docker | cut -d: -f3)
 echo "$DOCKER_GID"
 DOCKER_UID=$(getent passwd "$username" | cut -d: -f3)
