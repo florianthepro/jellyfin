@@ -1,4 +1,5 @@
 #!/bin/sh
+#W.I.:P
 set -euo pipefail
 cd /home/$(whoami)
 
