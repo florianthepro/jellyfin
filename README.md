@@ -49,15 +49,6 @@ RAD -->|API: DL Job| QBIT
 %% Tailscale extern
 CLIENT -->|HTTPS 443| FUNNEL --> TS --> JF
 ```
----
-Openssh
-```
-sudo apt update
-sudo apt install openssh-server
-sudo systemctl enable --now ssh
-sudo systemctl restart ssh
-ip -4 addr show
-#connect: ssh user@ip
 ```
 SSH:
 ```
