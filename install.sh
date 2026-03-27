@@ -85,4 +85,5 @@ echo "http://$addr:7878/"
 echo ""
 echo "qbittorrent:"
 echo "http://$addr:8080/"
-#EOF
+
+# EOF
