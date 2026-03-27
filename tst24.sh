@@ -54,7 +54,9 @@ echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.
 sudo apt update -qq -y
 sudo apt install -qq -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo usermod -aG docker "$(whoami)"
+
 clear
+
 DOCKER_GID=$(getent group docker | cut -d: -f3) | bash -x
 echo "$DOCKER_GID" | bash -x
 DOCKER_UID=$(getent passwd "$username" | cut -d: -f3) | bash -x
@@ -66,14 +68,16 @@ echo "$DOCKER_GID" | bash -x
 
 sudo chown -R $(id -u):$(id -g) ~/docker && sudo chmod -R u+rwX ~/docker | bash -x
 
-#clear
+ask "done? "
+
+clear
 docker compose -f /home/$username/docker/compose.yaml up -d
 sudo docker exec tailscale tailscale funnel -bg 8096
 #===== end ======
 echo "wait for jellyfin"
 sleep 15
 tcaddr=$(docker exec tailscale tailscale status --json | jq -r '.Self.DNSName' | sed 's/\.$//')
-#clear
+clear
 echo "jellyfin via tailscale:"
 echo "http://$tcaddr"
 echo ""
