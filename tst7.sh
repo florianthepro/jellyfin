@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-addr="10.100.66.34"
+addr=$(ip -4 route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="src") {print $(i+1); exit}}')
 port="8096"
 serverName="Jellyfin"
 adminName="admin"
