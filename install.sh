@@ -65,7 +65,7 @@ tcaddr=$(docker exec tailscale tailscale status --json | jq -r '.Self.DNSName' |
 #===== end ======
 clear
 echo "jellyfin via tailscale:"
-echo "http://$tcaddr"
+echo "https://$tcaddr"
 echo ""
 echo "jellyfin:"
 echo "http://$addr:8096/"
