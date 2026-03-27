@@ -1,5 +1,5 @@
 #!/bin/sh
-#W.I.:P
+
 set -euo pipefail
 cd /home/$(whoami)
 
@@ -15,30 +15,22 @@ addr=$(ip -4 route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="sr
 username="$(whoami)"
 userid="$(id -u)"
 groupid="$(id -g)"
-ui_culture="de"
-display_language="de-de"
-country_code="DE"
-country_name="Germany"
-userpass="Password123!"
-#===========================================================
-#!/bin/sh
-set -eu
-if (set -o pipefail >/dev/null 2>&1); then :; fi
-cd "/home/$(whoami)"
-
-jellyfin_name="jellyfin-server"
-jellyfin_url="http://127.0.0.1:8096"
+jellyfin_name="jellyfin"
+jellyfin_url="http://$addr:8096"
 jellyfin_language="de-DE"
 jellyfin_metadata_language="de"
 jellyfin_metadata_country="DE"
-jellyfin_admin_user="admin"
-jellyfin_admin_password="SehrSicheresPasswort123!"
-jellyfin_remote_access="false"
+jellyfin_admin_user="$username"
+ask "Password: "
+jellyfin_admin_password="$REPLY"
+jellyfin_remote_access="true"
 jellyfin_remote_upnp="false"
-#
-echo "Warte bis der Jellyfin‑Wizard erreichbar ist ..."
+
+echo "Warte auf Jellyfin‑Wizard..."
 until curl -fsS "http://127.0.0.1:8096/System/Info/Public" >/dev/null 2>&1; do
-#
+  sleep 1
+done
+
 curl -fsS -X POST "$jellyfin_url/Startup/Configuration" \
 -H "Content-Type: application/json" \
 -d "{\"MetadataCountryCode\":\"$jellyfin_metadata_country\",\"PreferredMetadataLanguage\":\"$jellyfin_metadata_language\",\"UICulture\":\"$jellyfin_language\"}" \
