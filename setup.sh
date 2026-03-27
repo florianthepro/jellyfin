@@ -21,36 +21,6 @@ country_code="DE"
 country_name="Germany"
 userpass="Password123!"
 
-curl -s -X POST \
-  -H "Content-Type: application/json" \
-  -d "{
-    \"UICulture\": \"$ui_culture\",
-    \"PreferredDisplayLanguage\": \"$display_language\",
-    \"MetadataCountryCode\": \"$country_code\",
-    \"MetadataCountryName\": \"$country_name\",
-    \"ServerName\": \"jellyfin\"
-  }" \
-  "http://$addr:8096/Startup/Configuration"
-
-curl -s -X POST \
-  -H "Content-Type: application/json" \
-  -d "{
-    \"Name\": \"$username\",
-    \"Password\": \"$userpass\",
-    \"PasswordConfirm\": \"$userpass\"
-  }" \
-  "http://$addr:8096/Startup/User"
-
-curl -s -X POST \
-  -H "Content-Type: application/json" \
-  -d '{
-    "EnableRemoteAccess": true,
-    "EnableAutomaticPortMapping": true
-  }' \
-  "http://$addr:8096/Startup/RemoteAccess"
-
-curl -s -X POST "http://$addr:8096/Startup/Complete"
-
 clear
 echo "http://$addr:8096/"
 echo "$username"
