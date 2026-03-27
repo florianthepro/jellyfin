@@ -23,8 +23,6 @@ jellyfin_admin_password="$REPLY"
 jellyfin_remote_access="true"
 jellyfin_remote_upnp="false"
 
-echo "Warte auf Jellyfin‑Wizard..." until curl -fsS "http://127.0.0.1:8096/System/Info/Public"; do sleep 1 done
-
 curl -fsS -X POST "$jellyfin_url/Startup/Configuration" \
 -H "Content-Type: application/json" \
 -d "{\"MetadataCountryCode\":\"$jellyfin_metadata_country\",\"PreferredMetadataLanguage\":\"$jellyfin_metadata_language\",\"UICulture\":\"$jellyfin_language\"}" \
