@@ -45,6 +45,9 @@ sudo curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-s
 sudo sed -i "s/fill-usr/$username/g" ~/docker/compose.yaml
 sudo sed -i "s/fill-key/$tsauthkey/g" ~/docker/compose.yaml
 
+sudo chown -R 1000:1000 /home/$username/docker
+sudo chmod -R u+rwX /home/$username/docker
+
 #===== docker =====
 sudo apt update -qq -y
 sudo apt install -qq -y ca-certificates curl gnupg
