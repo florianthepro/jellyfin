@@ -70,7 +70,8 @@ end
 
 subgraph INTERNET[Öffentlich / Internet]
 direction TB
-    FUNNEL[Tailscale Funnel<br/>HTTPS 443 → Jellyfin 8096]
+    FUNNEL_JF[Tailscale Funnel<br/>HTTPS 443 → Jellyfin 8096]
+    FUNNEL_FB[Tailscale Funnel<br/>HTTPS 443 → Filebrowser 8091]
     CLIENT[Externes Gerät<br/>Laptop/TV/Phone]
 end
 
@@ -90,8 +91,9 @@ SEERR -->|API| RAD
 SON -->|API: DL Job| QBIT
 RAD -->|API: DL Job| QBIT
 
-%% Tailscale extern
-CLIENT -->|HTTPS 443| FUNNEL --> TS --> JF
+%% Tailscale extern Zugriffe
+CLIENT -->|HTTPS| FUNNEL_JF --> TS --> JF
+CLIENT -->|HTTPS| FUNNEL_FB --> TS --> FB
 ```
 ---
 SSH:
