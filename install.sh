@@ -82,3 +82,4 @@ echo "http://$addr:7878/"
 echo ""
 echo "qbittorrent:"
 echo "http://$addr:8080/"
+curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/setup-jellyfin2.sh | bash
