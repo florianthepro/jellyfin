@@ -66,11 +66,14 @@ services:
       - NET_RAW
     restart: unless-stopped
 
-  filedrop:
-    image: linuxserver/filedrop
-    container_name: filedrop
+  filebrowser:
+    image: filebrowser/filebrowser:latest
+    container_name: filebrowser
+    user: "1000:1000"
     ports:
-      - "8044:8044"
+      - "8091:80"
     volumes:
-      - ./uploads:/uploads
+      - /home/fill-usr/media:/srv
+      - /home/fill-usr/docker/filebrowser/filebrowser.db:/database/filebrowser.db
+      - /home/fill-usr/docker/filebrowser/.filebrowser.json:/config/.filebrowser.json
     restart: unless-stopped
