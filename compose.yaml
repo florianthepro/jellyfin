@@ -65,3 +65,12 @@ services:
       - NET_ADMIN
       - NET_RAW
     restart: unless-stopped
+
+  filedrop:
+    image: linuxserver/filedrop
+    container_name: filedrop
+    ports:
+      - "8044:8044"
+    volumes:
+      - ./uploads:/uploads
+    restart: unless-stopped
