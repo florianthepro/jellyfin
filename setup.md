@@ -10,4 +10,7 @@
 		}
 	]
 ```
-5. run `curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/install.sh | bash` on your ubuntu device
+5. run
+```
+curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/install.sh | bash
+```
