@@ -13,9 +13,8 @@ addr=$(ip -4 route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="sr
 username="$(whoami)"
 
 clear
-cat <<'END'
-     >goto "https://login.tailscale.com/admin/settings/keys"     >press "Generate auth key..."     >press "Pre-approved"      >press "Generate Key"
-END
+
+echo "     goto https://login.tailscale.com/admin/settings/keys     >press Generate auth key...     >press Pre-approved      >press Generate Key"
 
 ask "Enter your Auth Key: "
 tsauthkey="$REPLY"
