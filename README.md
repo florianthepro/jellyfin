@@ -1,5 +1,8 @@
 ![REPO](https://img.shields.io/badge/REPO-in%20progress-blueviolet?logoColor=white)<div style="text-align: right">Setup(W.I.P): [setup.md](https://github.com/florianthepro/jellyfin-enhanced-setup/blob/main/setup.md)</div>
 
+
+Text links <span style="float:right">Text rechts</span>
+
 ---
 ```mermaid
 flowchart LR
