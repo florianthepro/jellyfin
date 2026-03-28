@@ -95,7 +95,6 @@ echo "http://$addr:8096/"
 echo "$username"
 echo "$userpass"
 
-: <<'EOF'
 ziel:
    bibliothek "Serien" → /home/jellyfin/series
 6. seerr installieren (seerr-compose.yaml aus repo)
@@ -121,4 +120,3 @@ ziel:
 14. sonarr/radarr/seerr/qbit verbindungen prüfen
 15. configuration sauber setzen (basisoptionen)
 16. css laden
-EOF
