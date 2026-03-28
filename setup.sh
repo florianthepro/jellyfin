@@ -1,32 +1,34 @@
 #!/bin/sh
-
+#set
 set -euo pipefail
 cd /home/$(whoami)
-
-sudo apt update -y
-sudo apt upgrade -y
 
 ask() {
 printf "%s" "$1" >/dev/tty
 IFS= read -r REPLY </dev/tty
 }
+
 name=$(hostname)
 addr=$(ip -4 route get 1.1.1.1 2>/dev/null | awk '{for(i=1;i<=NF;i++) if($i=="src") {print $(i+1); exit}}')
 username="$(whoami)"
+
 clear
 cat <<'END'
->goto "https://login.tailscale.com/admin/settings/keys"
->press "Generate auth key..."
->press "Pre-approved"
->press "Generate Key"
+     >goto "https://login.tailscale.com/admin/settings/keys"     >press "Generate auth key..."     >press "Pre-approved"      >press "Generate Key"
 END
+
 ask "Enter your Auth Key: "
 tsauthkey="$REPLY"
+
+sudo apt update -y
+sudo apt upgrade -y
 
 sudo mkdir -p ~/media/{music,video,books}
 sudo mkdir -p ~/docker/{jellyfin,seerr,sonarr,radarr,qbittorrent}
 sudo mkdir -p ~/docker/seerr/config
+
 sudo curl -L https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/compose.yaml -o ~/docker/compose.yaml
+
 sudo sed -i "s/fill-usr/$username/g" ~/docker/compose.yaml
 sudo sed -i "s/fill-key/$tsauthkey/g" ~/docker/compose.yaml
 sudo sed -i "s/fill-hostname/$name/g" ~/docker/compose.yaml
@@ -43,16 +45,20 @@ sudo usermod -aG docker "$username"
 sudo chown -R 1000:1000 /home/$username/docker/seerr/config
 
 clear
+
 docker compose -f /home/$username/docker/compose.yaml up -d
+
 echo ""
 sleep 15
+
 sudo docker exec tailscale tailscale funnel --bg 8091 http 127.0.0.1:8091
-#test it
-sudo docker exec tailscale tailscale funnel -bg 8096
+sudo docker exec tailscale tailscale funnel -bg 8096 # test it
+
 tcaddr=$(docker exec tailscale tailscale status --json | jq -r '.Self.DNSName' | sed 's/\.$//')
-#===== end ======
+
 echo ""
 sleep 5
+: <<'WIP'
 : <<'LINKS'
 jellyfin via tailscale: https://$tcaddr
 jellyfin: http://$addr:8096/
@@ -62,7 +68,6 @@ radarr: http://$addr:7878/
 qbittorrent: http://$addr:8080/
 filebrowser: http://$addr:8091/
 LINKS
-: <<'WIP'
 #=======================================================
 clear
 echo "http://$addr:8096/"
@@ -94,3 +99,4 @@ ziel:
 14. sonarr/radarr/seerr/qbit verbindungen prüfen
 15. configuration sauber setzen (basisoptionen)
 16. css laden
+WIP
