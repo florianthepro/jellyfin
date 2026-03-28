@@ -10,7 +10,7 @@
 		}
 	]
 ```
-5. run
+5. run on device
 ```
 curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/install.sh | bash
 ```
