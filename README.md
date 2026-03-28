@@ -1,4 +1,4 @@
-![REPO](https://img.shields.io/badge/REPO-in%20progress-blueviolet?logoColor=white)
+![REPO](https://img.shields.io/badge/REPO-in%20progress-blueviolet?logoColor=white)Setup(W.I.P): [setup.md](https://github.com/florianthepro/jellyfin-enhanced-setup/blob/main/setup.md)
 
 ---
 ```mermaid
@@ -46,8 +46,6 @@ RAD -->|API: DL Job| QBIT
 CLIENT -->|HTTPS| FUNNEL_JF --> TS --> JF
 CLIENT -->|HTTPS| FUNNEL_FB --> TS --> FB
 ```
----
-Setup(W.I.P): [setup.md](https://github.com/florianthepro/jellyfin-enhanced-setup/blob/main/setup.md)
 <!--
 mkdir -p ~/media/video/series-a/season00/s01E01.mkv & mkdir -p ~/media/video/movie-name/data like mp3 mkv etc
 sudo tailscale funnel 8096 on
