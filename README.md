@@ -47,26 +47,7 @@ CLIENT -->|HTTPS| FUNNEL_JF --> TS --> JF
 CLIENT -->|HTTPS| FUNNEL_FB --> TS --> FB
 ```
 ---
-SSH:
-```
-curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/ssh.sh | sudo bash
-```
-Reset all. > ONLY! test devices
-```
-curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/reset.sh | sudo bash
-```
-Test:
-```
-curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/tst.sh | sudo bash
-```
-Install:
-```
-curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/install.sh | bash
-```
-Setup:
-```
-echo "wIP" #curl -sSL https://raw.githubusercontent.com/florianthepro/jellyfin-enhanced-setup/main/setup.sh | bash
-```
+Setup(W.I.P): [setup.md](https://github.com/florianthepro/jellyfin-enhanced-setup/blob/main/setup.md)
 <!--
 mkdir -p ~/media/video/series-a/season00/s01E01.mkv & mkdir -p ~/media/video/movie-name/data like mp3 mkv etc
 sudo tailscale funnel 8096 on
