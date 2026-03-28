@@ -58,7 +58,9 @@ tcaddr=$(docker exec tailscale tailscale status --json | jq -r '.Self.DNSName' |
 echo ""
 sleep 5
 
-echo
+echo "go to https://$tcaddr"
+echo "complete setup wizard"
+ask "done?"
 
 : <<'WIP'
 : <<'LINKS'
