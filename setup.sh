@@ -22,21 +22,6 @@ cat <<'END'
 END
 ask "Enter your Auth Key: "
 tsauthkey="$REPLY"
-clear
-cat <<'END'
->goto https://login.tailscale.com/admin/acls/file
->press "Edit anyway..."
->add:
-
-	"nodeAttrs": [
-		{
-			"target": ["autogroup:member"],
-			"attr":   ["funnel"]
-		}
-	]
-
-END
-ask "done? "
 
 sudo mkdir -p ~/media/{music,video,books}
 sudo mkdir -p ~/docker/{jellyfin,seerr,sonarr,radarr,qbittorrent}
@@ -68,26 +53,15 @@ tcaddr=$(docker exec tailscale tailscale status --json | jq -r '.Self.DNSName' |
 #===== end ======
 echo ""
 sleep 5
-echo "jellyfin via tailscale:"
-echo "https://$tcaddr"
-echo ""
-echo "jellyfin:"
-echo "http://$addr:8096/"
-echo ""
-echo "seerr:"
-echo "http://$addr:5055/"
-echo ""
-echo "sonarr:"
-echo "http://$addr:8989/"
-echo ""
-echo "radarr:"
-echo "http://$addr:7878/"
-echo ""
-echo "qbittorrent:"
-echo "http://$addr:8080/"
-echo ""
-echo "filebrowser:"
-echo "http://$addr:8091/"
+: <<'LINKS'
+jellyfin via tailscale: https://$tcaddr
+jellyfin: http://$addr:8096/
+seerr: http://$addr:5055/
+sonarr: http://$addr:8989/
+radarr: http://$addr:7878/
+qbittorrent: http://$addr:8080/
+filebrowser: http://$addr:8091/
+LINKS
 : <<'WIP'
 #=======================================================
 clear
