@@ -1,4 +1,4 @@
-![REPO](https://img.shields.io/badge/REPO-in%20progress-blueviolet?logoColor=white)Setup(W.I.P): [setup.md](https://github.com/florianthepro/jellyfin-enhanced-setup/blob/main/setup.md)
+![REPO](https://img.shields.io/badge/REPO-in%20progress-blueviolet?logoColor=white)     Setup(W.I.P): [setup.md](https://github.com/florianthepro/jellyfin-enhanced-setup/blob/main/setup.md)
 
 ---
 ```mermaid
