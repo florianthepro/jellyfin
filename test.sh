@@ -14,7 +14,8 @@ username="$(whoami)"
 
 clear
 
-echo "     goto https://login.tailscale.com/admin/settings/keys     >press Generate auth key...     >press Pre-approved      >press Generate Key"
+echo "go to https://login.tailscale.com/admin/settings/keys"
+echo ">press Generate auth key...     >press Pre-approved      >press Generate Key"
 
 ask "Enter your Auth Key: "
 tsauthkey="$REPLY"
@@ -61,6 +62,16 @@ sleep 5
 echo "go to https://$tcaddr"
 echo "complete setup wizard"
 ask "done?"
+
+clear
+
+echo "go to https://$tcaddr"
+echo ">login     >user icon      >admin dashbourd     >press Left Side API-Keys     >create and copy key"
+
+ask "Enter your API Key: "
+jfapi="$REPLY"
+
+
 
 : <<'WIP'
 : <<'LINKS'
