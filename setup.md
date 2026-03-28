@@ -10,3 +10,4 @@
 		}
 	]
 ```
+5. run `` on your ubuntu device
